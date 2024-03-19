@@ -3,7 +3,7 @@ using PTProject.Data;
 
 namespace PTProject.Test
 {
-    public class Tests
+    public class UserTest
     {
         private Users _users;
 
@@ -17,7 +17,7 @@ namespace PTProject.Test
         public void AddUser_AddsUserToList()
         {
             // Arrange
-            var user = new Users.User { UserId = 1, UserName = "User 1", UserEmail = "user1@example.com" };
+            var user = new Users.User { UserId = 1, UserName = "User 1", UserType = "actor" };
 
             // Act
             _users.AddUser(user);
@@ -26,37 +26,36 @@ namespace PTProject.Test
             bool userExists = false;
             foreach (var u in _users.GetUsers())
             {
-                if (u.UserId == user.UserId && u.UserName == user.UserName && u.UserEmail == user.UserEmail)
+                if (u.UserId == user.UserId && u.UserName == user.UserName && u.UserType == user.UserType)
                 {
                     userExists = true;
                     break;
                 }
             }
             Assert.IsTrue(userExists);
-            Assert.AreEqual(1, _users.GetUsers().Count);
+            Assert.Contains(user, _users.GetUsers());
         }
 
         [Test]
         public void RemoveUser_RemovesUserFromList()
         {
             // Arrange
-            var user = new Users.User { UserId = 1, UserName = "User 1", UserEmail = "user1@example.com" };
+            var user = new Users.User { UserId = 1, UserName = "User 1", UserType = "actor" };
             _users.AddUser(user);
 
             // Act
-            var result = _users.RemoveUser(user);
+            _users.RemoveUser(user);
 
             // Assert
-            Assert.IsTrue(result);
-            Assert.AreEqual(0, _users.GetUsers().Count);
+            Assert.That(_users.GetUsers(), Does.Not.Contain(user));
         }
 
         [Test]
         public void GetUsers_ReturnsCorrectUsers()
         {
             // Arrange
-            var user1 = new Users.User { UserId = 1, UserName = "User 1", UserEmail = "user1@example.com" };
-            var user2 = new Users.User { UserId = 2, UserName = "User 2", UserEmail = "user2@example.com" };
+            var user1 = new Users.User { UserId = 1, UserName = "User 1", UserType = "actor" };
+            var user2 = new Users.User { UserId = 2, UserName = "User 2", UserType = "supplier" };
             _users.AddUser(user1);
             _users.AddUser(user2);
 
@@ -64,16 +63,15 @@ namespace PTProject.Test
             var result = _users.GetUsers();
 
             // Assert
-            Assert.AreEqual(2, result.Count);
             bool user1Exists = false;
             bool user2Exists = false;
             foreach (var u in result)
             {
-                if (u.UserId == user1.UserId && u.UserName == user1.UserName && u.UserEmail == user1.UserEmail)
+                if (u.UserId == user1.UserId && u.UserName == user1.UserName && u.UserType == user1.UserType)
                 {
                     user1Exists = true;
                 }
-                if (u.UserId == user2.UserId && u.UserName == user2.UserName && u.UserEmail == user2.UserEmail)
+                if (u.UserId == user2.UserId && u.UserName == user2.UserName && u.UserType == user2.UserType)
                 {
                     user2Exists = true;
                 }

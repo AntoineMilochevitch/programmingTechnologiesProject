@@ -24,13 +24,13 @@ namespace PTProject.Data
             userList.Add(user);
         }
 
-        public bool RemoveUser(User user)
+        public void RemoveUser(User user)
         {
             if (user == null)
             {
                 throw new ArgumentNullException(nameof(user), "User cannot be null");
             }
-            return userList.Remove(user);
+            userList.Remove(user);
         }
 
         public List<User> GetUsers()
@@ -42,7 +42,7 @@ namespace PTProject.Data
         {
             public int UserId { get; set; }
             public string? UserName { get; set; }
-            public string? UserEmail { get; set; }
+            public string? UserType { get; set; }
         }
 
     }
