@@ -17,11 +17,19 @@ namespace PTProject.Data
 
         public void AddUser(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user), "User cannot be null");
+            }
             userList.Add(user);
         }
 
         public bool RemoveUser(User user)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException(nameof(user), "User cannot be null");
+            }
             return userList.Remove(user);
         }
 
