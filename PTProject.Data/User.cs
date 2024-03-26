@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PTProject.Data.Catalog;
 
 namespace PTProject.Data
 {
-    public class ProcessState
+    public class User
     {
-        public required List<Good> AvalaibleGoods {  get; set; }
-
+        public int UserId { get; set; }
+        public string? UserName { get; set; }
+        public string? UserType { get; set; }
     }
 }

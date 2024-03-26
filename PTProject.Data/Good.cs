@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PTProject.Data.Catalog;
 
 namespace PTProject.Data
 {
-    public class ProcessState
+    public class Good
     {
-        public required List<Good> AvalaibleGoods {  get; set; }
-
+        public string? Description { get; set; }
     }
 }

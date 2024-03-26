@@ -5,7 +5,7 @@ namespace PTProject.Test
 {
     public class UserTest
     {
-        private Users _users;
+        private IUsers _users;
 
         [SetUp]
         public void Setup()
@@ -17,7 +17,7 @@ namespace PTProject.Test
         public void AddUser_AddsUserToList()
         {
             // Arrange
-            var user = new Users.User { UserId = 1, UserName = "User 1", UserType = "actor" };
+            var user = new User { UserId = 1, UserName = "User 1", UserType = "actor" };
 
             // Act
             _users.AddUser(user);
@@ -40,7 +40,7 @@ namespace PTProject.Test
         public void RemoveUser_RemovesUserFromList()
         {
             // Arrange
-            var user = new Users.User { UserId = 1, UserName = "User 1", UserType = "actor" };
+            var user = new User { UserId = 1, UserName = "User 1", UserType = "actor" };
             _users.AddUser(user);
 
             // Act
@@ -54,8 +54,8 @@ namespace PTProject.Test
         public void GetUsers_ReturnsCorrectUsers()
         {
             // Arrange
-            var user1 = new Users.User { UserId = 1, UserName = "User 1", UserType = "actor" };
-            var user2 = new Users.User { UserId = 2, UserName = "User 2", UserType = "supplier" };
+            var user1 = new User { UserId = 1, UserName = "User 1", UserType = "actor" };
+            var user2 = new User { UserId = 2, UserName = "User 2", UserType = "supplier" };
             _users.AddUser(user1);
             _users.AddUser(user2);
 

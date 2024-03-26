@@ -7,9 +7,10 @@ using static PTProject.Data.Catalog;
 
 namespace PTProject.Data
 {
-    public class ProcessState
+    public interface ICatalog
     {
-        public required List<Good> AvalaibleGoods {  get; set; }
-
+        void AddGood(int id, Good good);
+        bool RemoveGood(int id);
+        Good? GetGood(int id);
     }
 }

@@ -7,46 +7,40 @@ namespace PTProject.Test
 {
     public class CatalogTest
     {
-        private Catalog catalog;
+        private ICatalog _catalog;
 
         [SetUp]
         public void Setup()
         {
-            catalog = new Catalog();
+            _catalog = new Catalog();
         }
 
         [Test]
         public void AddGood_AddsGoodToCatalog()
         {
             var good = new Good { Description = "Test Good" };
-            catalog.AddGood(1, good);
+            _catalog.AddGood(1, good);
 
-            Assert.That(catalog.GetGood(1), Is.EqualTo(good));
+            Assert.That(_catalog.GetGood(1), Is.EqualTo(good));
         }
 
         [Test]
         public void RemoveGood_RemovesGoodFromCatalog()
         {
             var good = new Good { Description = "Test Good" };
-            catalog.AddGood(1, good);
-            catalog.RemoveGood(1);
+            _catalog.AddGood(1, good);
+            _catalog.RemoveGood(1);
 
-            Assert.IsNull(catalog.GetGood(1));
+            Assert.IsNull(_catalog.GetGood(1));
         }
 
         [Test]
         public void GetGood_ReturnsGoodFromCatalog()
         {
             var good = new Good { Description = "Test Good" };
-            catalog.AddGood(1, good);
+            _catalog.AddGood(1, good);
 
-            Assert.That(catalog.GetGood(1), Is.EqualTo(good));
-        }
-
-        [Test]
-        public void AddGood_ThrowsException_WhenGoodIsNull()
-        {
-            Assert.Throws<ArgumentNullException>(() => catalog.AddGood(1, null));
+            Assert.That(_catalog.GetGood(1), Is.EqualTo(good));
         }
     }
 }

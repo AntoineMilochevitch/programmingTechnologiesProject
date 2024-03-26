@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static PTProject.Data.Catalog;
+using static PTProject.Data.Good;
 
 namespace PTProject.Data
 {
-    public class Catalog
+    public class Catalog : ICatalog
     {
         private Dictionary<int, Good> goods;
 
@@ -34,11 +34,6 @@ namespace PTProject.Data
         {
             goods.TryGetValue(id, out Good? good);
             return good;
-        }
-
-        public class Good
-        {
-            public string? Description { get; set; }
         }
     }
 }
