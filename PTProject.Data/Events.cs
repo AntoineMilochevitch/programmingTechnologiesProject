@@ -12,6 +12,7 @@ namespace PTProject.Data
         private IUsers _users;
         private List<Purchase> _purchases;
 
+
         public Events(ICatalog catalog, IUsers users)
         {
             _catalog = catalog;
