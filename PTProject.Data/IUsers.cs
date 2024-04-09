@@ -11,6 +11,8 @@ namespace PTProject.Data
     {
         void AddUser(User user);
         void RemoveUser(User user);
-        List<User> GetUsers();
+        List<User> GetAllUsers();
+
+        User? GetUser(int id);
     }
 }

@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace PTProject.Data
 {
-    public class User
+    public interface IProcessState
     {
-        public int UserId { get; set; }
-        public string? UserName { get; set; }
     }
 }

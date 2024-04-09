@@ -35,5 +35,10 @@ namespace PTProject.Data
             goods.TryGetValue(id, out Good? good);
             return good;
         }
+
+        public Dictionary<int, Good> GetCatalog()
+        {
+            return goods;
+        }
     }
 }

@@ -9,11 +9,11 @@ namespace PTProject.Data
 {
     public class Users : IUsers
     {
-        private List<User> userList;
+        private List<User> _users;
 
         public Users()
         {
-            userList = new List<User>();
+            _users = new List<User>();
         }
 
         public void AddUser(User user)
@@ -22,7 +22,7 @@ namespace PTProject.Data
             {
                 throw new ArgumentNullException(nameof(user), "User cannot be null");
             }
-            userList.Add(user);
+            _users.Add(user);
         }
 
         public void RemoveUser(User user)
@@ -31,12 +31,25 @@ namespace PTProject.Data
             {
                 throw new ArgumentNullException(nameof(user), "User cannot be null");
             }
-            userList.Remove(user);
+            _users.Remove(user);
         }
 
-        public List<User> GetUsers()
+        public List<User> GetAllUsers()
         {
-            return userList;
+            return _users;
+        }
+
+        public User? GetUser(int id)
+        {
+            for (int i = 0; i < _users.Count; i++)
+            {
+                if (_users[i].UserId == id)
+                {
+                    return _users[i];
+                }
+            }
+
+            return null;
         }
 
     }

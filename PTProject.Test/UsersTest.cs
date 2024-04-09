@@ -17,68 +17,76 @@ namespace PTProject.Test
         public void AddUser_AddsUserToList()
         {
             // Arrange
-            var user = new User { UserId = 1, UserName = "User 1", UserType = "actor" };
+            var user = new User { UserId = 1, UserName = "User 1"};
 
             // Act
             _users.AddUser(user);
 
             // Assert
-            bool userExists = false;
-            foreach (var u in _users.GetUsers())
-            {
-                if (u.UserId == user.UserId && u.UserName == user.UserName && u.UserType == user.UserType)
-                {
-                    userExists = true;
-                    break;
-                }
-            }
-            Assert.IsTrue(userExists);
-            Assert.Contains(user, _users.GetUsers());
+            Assert.Contains(user, _users.GetAllUsers());
         }
 
         [Test]
         public void RemoveUser_RemovesUserFromList()
         {
             // Arrange
-            var user = new User { UserId = 1, UserName = "User 1", UserType = "actor" };
+            var user = new User { UserId = 1, UserName = "User 1" };
             _users.AddUser(user);
 
             // Act
             _users.RemoveUser(user);
 
             // Assert
-            Assert.That(_users.GetUsers(), Does.Not.Contain(user));
+            Assert.That(_users.GetAllUsers(), Does.Not.Contain(user));
         }
 
         [Test]
         public void GetUsers_ReturnsCorrectUsers()
         {
             // Arrange
-            var user1 = new User { UserId = 1, UserName = "User 1", UserType = "actor" };
-            var user2 = new User { UserId = 2, UserName = "User 2", UserType = "supplier" };
+            var user1 = new User { UserId = 1, UserName = "User 1" };
+            var user2 = new User { UserId = 2, UserName = "User 2" };
             _users.AddUser(user1);
             _users.AddUser(user2);
 
             // Act
-            var result = _users.GetUsers();
+            var result = _users.GetAllUsers();
 
             // Assert
-            bool user1Exists = false;
-            bool user2Exists = false;
-            foreach (var u in result)
-            {
-                if (u.UserId == user1.UserId && u.UserName == user1.UserName && u.UserType == user1.UserType)
-                {
-                    user1Exists = true;
-                }
-                if (u.UserId == user2.UserId && u.UserName == user2.UserName && u.UserType == user2.UserType)
-                {
-                    user2Exists = true;
-                }
-            }
-            Assert.IsTrue(user1Exists);
-            Assert.IsTrue(user2Exists);
+            Assert.Contains(user1, result);
+            Assert.Contains(user2, result); 
         }
 
+        [Test]
+        public void GetUser_ReturnsCorrectUser()
+        {
+            // Arrange
+            var user1 = new User { UserId = 1, UserName = "User 1" };
+            var user2 = new User { UserId = 2, UserName = "User 2" };
+            _users.AddUser(user1);
+            _users.AddUser(user2);
+
+            // Act
+            var result1 = _users.GetUser(user1.UserId);
+            var result2 = _users.GetUser(user2.UserId);
+
+            // Assert
+            Assert.AreEqual(user1, result1);
+            Assert.AreEqual(user2, result2);
+        }
+
+        [Test]
+        public void GetUser_ReturnsNullForNonexistentUser()
+        {
+            // Arrange
+            var user = new User { UserId = 1, UserName = "User 1" };
+            _users.AddUser(user);
+
+            // Act
+            var result = _users.GetUser(999); // ID that doesn't exist
+
+            // Assert
+            Assert.IsNull(result);
+        }
     }
 }

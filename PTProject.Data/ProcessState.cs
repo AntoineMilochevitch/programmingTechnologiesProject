@@ -9,7 +9,5 @@ namespace PTProject.Data
 {
     public class ProcessState
     {
-        public required List<Good> AvalaibleGoods {  get; set; }
-
     }
 }

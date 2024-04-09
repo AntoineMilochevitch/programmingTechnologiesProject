@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace PTProject.Data
 {
-    public class Good
+    public class Purchase
     {
+        public int UserId { get; set; }
         public int GoodId { get; set; }
-        public string? Description { get; set; }
-        public int Quantity { get; set; }
-        public int Price { get; set; }
-       
+        public DateTime Date { get; set; }
     }
 }

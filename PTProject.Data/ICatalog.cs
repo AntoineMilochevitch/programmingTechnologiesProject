@@ -12,5 +12,6 @@ namespace PTProject.Data
         void AddGood(int id, Good good);
         bool RemoveGood(int id);
         Good? GetGood(int id);
+        Dictionary<int, Good> GetCatalog();
     }
 }
