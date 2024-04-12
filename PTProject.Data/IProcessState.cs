@@ -8,5 +8,9 @@ namespace PTProject.Data
 {
     public interface IProcessState
     {
+        int numberUser(List<User>);
+
+        int numberGood(Catalog);
+
     }
 }
