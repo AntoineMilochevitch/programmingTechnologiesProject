@@ -9,5 +9,6 @@ namespace PTProject.Data
 {
     public class ProcessState
     {
+
     }
 }

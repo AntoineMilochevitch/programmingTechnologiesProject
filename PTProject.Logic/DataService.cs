@@ -9,7 +9,6 @@ using PTProject.Data;
 namespace PTProject.Logic
 {
     public class DataService
-    {
-       
+    {       
     }
 }
