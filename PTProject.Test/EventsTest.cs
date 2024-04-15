@@ -6,6 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
+/// List of all test
+/// Test the exception when we try to add an event where the user or the good doesn't exist 
+/// Test the purchase event
+/// Test the return event
+/// Test the exception when we try to purchase a good out of stock
+
 namespace PTProject.Test
 {
     public class EventsTest
@@ -22,12 +29,14 @@ namespace PTProject.Test
             _events = new Events(_catalog, _users);
         }
 
+        /// Test the exception when we try to add an event where the user or the good doesn't exist 
         [Test]
         public void Purchase_ThrowsExceptionWhenUserOrGoodNotFound()
         {
             Assert.Throws<ArgumentException>(() => _events.Purchase(1, 1));
         }
 
+        /// Test the purchase event
         [Test]
         public void User_Purchase()
         {
@@ -45,8 +54,9 @@ namespace PTProject.Test
             Assert.That(good.Quantity, Is.EqualTo(9));
         }
 
-    
-            [Test]
+        /// Test the return event <summary>
+        
+        [Test]
         public void User_Return()
         {
             // Arrange
@@ -64,6 +74,7 @@ namespace PTProject.Test
             Assert.That(good.Quantity, Is.EqualTo(10));
         }
 
+        /// Test the exception when we try to purchase a good out of stock
         [Test]
         public void BuyGood_ThrowsExceptionWhenGoodOutOfStock()
         {

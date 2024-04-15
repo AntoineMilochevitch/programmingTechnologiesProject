@@ -5,6 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// List of all test
+/// Test the return of the correct user count
+/// Test the return of the correct good count
+/// Test the exception when the purchase is null when we add a purchase
+/// Test the exception when the purchase is null when we remove a purchase
+
 namespace PTProject.Test
 {
     public class ProcessStateTest
@@ -21,6 +27,7 @@ namespace PTProject.Test
             _processState = new ProcessState(_catalog, _users);
         }
 
+        /// Test the return of the correct user count
         [Test]
         public void NumberUser_ReturnsCorrectUserCount()
         {
@@ -32,6 +39,7 @@ namespace PTProject.Test
             Assert.That(_processState.NumberUser(), Is.EqualTo(2));
         }
 
+        /// Test the return of the correct good count
         [Test]
         public void NumberGood_ReturnsCorrectGoodCount()
         {
@@ -44,12 +52,14 @@ namespace PTProject.Test
             Assert.That(_processState.NumberGood(good2.GoodId), Is.EqualTo(1));
         }
 
+        /// Test the exception when the purchase is null when we add a purchase
         [Test]
         public void AddPurchase_ThrowsExceptionWhenPurchaseIsNull()
         {
             Assert.Throws<ArgumentNullException>(() => _processState.AddPurchase(null));
         }
 
+        /// Test the exception when the purchase is null when we remove a purchase
         [Test]
         public void RemovePurchase_ThrowsExceptionWhenPurchaseIsNull()
         {

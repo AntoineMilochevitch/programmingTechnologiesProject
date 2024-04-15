@@ -2,6 +2,13 @@
 using PTProject.Data;
 using System;
 
+/// List of all test
+/// Test to add a new good in the catalog with an id and a name good
+/// Test to remove a good of the catalog
+/// Test to verify that different catalogs can be created
+/// Test the case when we add a quantity of a good that already exist
+/// Test the exception item is null
+
 namespace PTProject.Test
 {
     public class CatalogTest
@@ -15,6 +22,7 @@ namespace PTProject.Test
         }
 
         [Test]
+        /// Test to add a new good in the catalog with an id and a name good
         public void AddGood_AddsGoodToCatalog()
         {
             var good = new Good { GoodId = 1, Description = "Test Good", Quantity = 10, Price = 100 };
@@ -23,6 +31,7 @@ namespace PTProject.Test
             Assert.That(_catalog.GetGood(good.GoodId), Is.EqualTo(good));
         }
 
+        /// Test to remove a good of the catalog
         [Test]
         public void RemoveGood_RemovesGoodFromCatalog()
         {
@@ -43,6 +52,7 @@ namespace PTProject.Test
             Assert.That(_catalog.GetGood(good.GoodId), Is.EqualTo(good));
         }
 
+        /// Test to verify that different catalogs can be created
         [Test]
         public void GetCatalog_ReturnsCorrectCatalog()
         {
@@ -63,6 +73,7 @@ namespace PTProject.Test
             Assert.That(result[good2.GoodId], Is.EqualTo(good2));
         }
 
+        /// Test the case when we add a quantity of a good that already exist
         [Test]
         public void AddItem_ThrowsExceptionWhenItemAlreadyExists()
         {
@@ -76,6 +87,7 @@ namespace PTProject.Test
             Assert.That(good.Quantity, Is.EqualTo(11));
         }
 
+        /// Test the exception item is null
         [Test]
         public void AddItem_ThrowsExceptionWhenItemIsNull()
         {

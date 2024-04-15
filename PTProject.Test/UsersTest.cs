@@ -1,6 +1,16 @@
 using NUnit.Framework;
 using PTProject.Data;
 
+
+/// List of all test
+/// Add an user of the users list
+/// Remove an user of the users list
+/// Test to verify that different users can be created
+/// Test to verify that different users can be created and that we can return the correct user
+/// Return null if the user doesn't exist
+/// Test the exception of user already exist
+/// Test the exception user is null
+
 namespace PTProject.Test
 {
     public class UserTest
@@ -13,6 +23,7 @@ namespace PTProject.Test
             _users = new Users();
         }
 
+        /// Add an user of the users list
         [Test]
         public void AddUser_AddsUserToList()
         {
@@ -26,6 +37,7 @@ namespace PTProject.Test
             Assert.Contains(user, _users.GetAllUsers());
         }
 
+        /// Remove an user of the users list
         [Test]
         public void RemoveUser_RemovesUserFromList()
         {
@@ -40,6 +52,7 @@ namespace PTProject.Test
             Assert.That(_users.GetAllUsers(), Does.Not.Contain(user));
         }
 
+        /// Test to verify that different users can be created
         [Test]
         public void GetUsers_ReturnsCorrectUsers()
         {
@@ -57,6 +70,7 @@ namespace PTProject.Test
             Assert.Contains(user2, result); 
         }
 
+        /// Test to verify that different users can be created and that we can return the correct user
         [Test]
         public void GetUser_ReturnsCorrectUser()
         {
@@ -75,6 +89,7 @@ namespace PTProject.Test
             Assert.That(result2, Is.EqualTo(user2));
         }
 
+        /// Return null if the user doesn't exist
         [Test]
         public void GetUser_ReturnsNullForNonexistentUser()
         {
@@ -89,6 +104,7 @@ namespace PTProject.Test
             Assert.IsNull(result);
         }
 
+        /// Test the exception of user already exist
         [Test]
         public void AddUser_ThrowsExceptionWhenUserAlreadyExists()
         {
@@ -101,6 +117,7 @@ namespace PTProject.Test
             Assert.That(ex.Message, Is.EqualTo("User already exists"));
         }
 
+        /// Test the exception user is null
         [Test]
         public void AddUser_ThrowsExceptionWhenUserIsNull()
         {
