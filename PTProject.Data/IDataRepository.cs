@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace PTProject.Data
 {
     public interface IDataRepository
     {
+
         User? GetUser(int id);
         void AddUser(User user);
         void RemoveUser(User user);
