@@ -22,7 +22,15 @@ namespace PTProject.Data
             {
                 throw new ArgumentNullException(nameof(good), "Good cannot be null");
             }
-            goods[id] = good;
+            if (goods.ContainsKey(id))
+            {
+
+                goods[id].Quantity++; 
+            }
+            else
+            {
+                goods[id] = good;
+            }
         }
 
         public bool RemoveGood(int id)

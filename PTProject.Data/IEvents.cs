@@ -10,6 +10,5 @@ namespace PTProject.Data
     {
         void Purchase(int userId, int goodId);
         void Return(int userId, int goodId);
-        List<Purchase> GetPurchases();
     }
 }

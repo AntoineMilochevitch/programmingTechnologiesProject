@@ -8,20 +8,50 @@ using static PTProject.Data.Catalog;
 
 namespace PTProject.Data
 {
-    public class ProcessState
+    public class ProcessState : IProcessState
     {
         private ICatalog _catalog;
         private IUsers _users;
         private List<Purchase> _purchases;
 
-        public int numberUser(List<User>)
+        public ProcessState(ICatalog catalog, IUsers users)
         {
-            return User.Count;
+            _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
+            _users = users ?? throw new ArgumentNullException(nameof(users));
+            _purchases = new List<Purchase>();
         }
 
-        public int numberGood(Catalog)
+        public int NumberUser()
         {
-            return Catalog.Count;
+            return _users.GetAllUsers().Count;
+        }
+
+        public int NumberGood(int goodId)
+        {
+            return _catalog.GetCatalog().Values.Count(good => good.GoodId == goodId);
+        }
+
+        public void AddPurchase(Purchase purchase)
+        {
+            if (purchase == null)
+            {
+                throw new ArgumentNullException(nameof(purchase));
+            }
+            _purchases.Add(purchase);
+        }
+
+        public bool RemovePurchase(Purchase purchase)
+        {
+            if (purchase == null)
+            {
+                throw new ArgumentNullException(nameof(purchase));
+            }
+            return _purchases.Remove(purchase);
+        }
+
+        public List<Purchase> GetPurchases()
+        {
+            return _purchases;
         }
     }
 }

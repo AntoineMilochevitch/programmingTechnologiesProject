@@ -65,10 +65,5 @@ namespace PTProject.Data
                 good.Quantity++;
             }
         }
-
-        public List<Purchase> GetPurchases()
-        {
-            return _purchases;
-        }
     }
 }

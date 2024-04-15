@@ -16,5 +16,10 @@ namespace PTProject.Data
         bool RemoveGood(int id);
         void Purchase(int userId, int goodId);
         void Return(int userId, int goodId);
+        int NumberUser();
+        int NumberGood(int goodId);
+        void AddPurchase(Purchase purchase);
+        bool RemovePurchase(Purchase purchase);
+        List<Purchase> GetPurchases();
     }
 }

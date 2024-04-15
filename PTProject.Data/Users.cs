@@ -22,6 +22,11 @@ namespace PTProject.Data
             {
                 throw new ArgumentNullException(nameof(user), "User cannot be null");
             }
+
+            if (_users.Any(u => u.UserId == user.UserId))
+            {
+                throw new ArgumentException("User already exists");
+            }
             _users.Add(user);
         }
 

@@ -71,8 +71,8 @@ namespace PTProject.Test
             var result2 = _users.GetUser(user2.UserId);
 
             // Assert
-            Assert.AreEqual(user1, result1);
-            Assert.AreEqual(user2, result2);
+            Assert.That(result1, Is.EqualTo(user1));
+            Assert.That(result2, Is.EqualTo(user2));
         }
 
         [Test]
@@ -87,6 +87,27 @@ namespace PTProject.Test
 
             // Assert
             Assert.IsNull(result);
+        }
+
+        [Test]
+        public void AddUser_ThrowsExceptionWhenUserAlreadyExists()
+        {
+            // Arrange
+            var user = new User { UserId = 1, UserName = "User 1" };
+            _users.AddUser(user);
+
+            // Act & Assert
+            var ex = Assert.Throws<ArgumentException>(() => _users.AddUser(user));
+            Assert.That(ex.Message, Is.EqualTo("User already exists"));
+        }
+
+        [Test]
+        public void AddUser_ThrowsExceptionWhenUserIsNull()
+        {
+            // Act & Assert
+            var ex = Assert.Throws<ArgumentNullException>(() => _users.AddUser(null));
+            Assert.That(ex.ParamName, Is.EqualTo("user"));
+            Assert.That(ex.Message, Does.Contain("User cannot be null"));
         }
     }
 }

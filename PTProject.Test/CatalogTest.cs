@@ -56,11 +56,34 @@ namespace PTProject.Test
             var result = _catalog.GetCatalog();
 
             // Assert
-            Assert.AreEqual(2, result.Count);
+            Assert.That(result.Count, Is.EqualTo(2));
             Assert.IsTrue(result.ContainsKey(good1.GoodId));
             Assert.IsTrue(result.ContainsKey(good2.GoodId));
-            Assert.AreEqual(good1, result[good1.GoodId]);
-            Assert.AreEqual(good2, result[good2.GoodId]);
+            Assert.That(result[good1.GoodId], Is.EqualTo(good1));
+            Assert.That(result[good2.GoodId], Is.EqualTo(good2));
         }
+
+        [Test]
+        public void AddItem_ThrowsExceptionWhenItemAlreadyExists()
+        {
+            // Arrange
+            var good = new Good { GoodId = 1, Description = "Test Good", Quantity = 10, Price = 100 };
+            _catalog.AddGood(good.GoodId, good);
+
+
+            // Act & Assert
+            _catalog.AddGood(good.GoodId, good);
+            Assert.That(good.Quantity, Is.EqualTo(11));
+        }
+
+        [Test]
+        public void AddItem_ThrowsExceptionWhenItemIsNull()
+        {
+            // Act & Assert
+            var ex = Assert.Throws<ArgumentNullException>(() => _catalog.AddGood(1, null));
+            Assert.That(ex.ParamName, Is.EqualTo("good"));
+            Assert.That(ex.Message, Does.Contain("Good cannot be null"));
+        }
+
     }
 }
