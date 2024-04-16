@@ -20,12 +20,16 @@ namespace PTProject.Test
         {
             _catalog = new Catalog();
         }
+        private Good CreateDefaultGood()
+        {
+            return new Good { GoodId = 1, Description = "Default Good", Quantity = 10, Price = 100 };
+        }
 
         [Test]
         /// Test to add a new good in the catalog with an id and a name good
         public void AddGood_AddsGoodToCatalog()
         {
-            var good = new Good { GoodId = 1, Description = "Test Good", Quantity = 10, Price = 100 };
+            var good = CreateDefaultGood();
             _catalog.AddGood(good.GoodId, good);
 
             Assert.That(_catalog.GetGood(good.GoodId), Is.EqualTo(good));
