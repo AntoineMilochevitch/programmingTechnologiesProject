@@ -28,7 +28,7 @@ namespace PTProject.Data.Test
         public void AddUser_AddsUserToList()
         {
             // Arrange
-            var user = new User { UserId = 1, UserName = "User 1"};
+            var user = new User { UserId = 1, UserName = "User 1" };
 
             // Act
             _users.AddUser(user);
@@ -67,7 +67,7 @@ namespace PTProject.Data.Test
 
             // Assert
             Assert.Contains(user1, result);
-            Assert.Contains(user2, result); 
+            Assert.Contains(user2, result);
         }
 
         /// Test to verify that different users can be created and that we can return the correct user
