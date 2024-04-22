@@ -11,7 +11,7 @@ using PTProject.Data;
 /// Test the exception of user already exist
 /// Test the exception user is null
 
-namespace PTProject.Test
+namespace PTProject.Data.Test
 {
     public class UserTest
     {

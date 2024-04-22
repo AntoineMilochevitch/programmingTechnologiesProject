@@ -9,7 +9,7 @@ using System;
 /// Test the case when we add a quantity of a good that already exist
 /// Test the exception item is null
 
-namespace PTProject.Test
+namespace PTProject.Data.Test
 {
     public class CatalogTest
     {

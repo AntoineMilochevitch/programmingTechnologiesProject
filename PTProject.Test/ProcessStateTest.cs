@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 /// Test the exception when the purchase is null when we add a purchase
 /// Test the exception when the purchase is null when we remove a purchase
 
-namespace PTProject.Test
+namespace PTProject.Data.Test
 {
     public class ProcessStateTest
     {

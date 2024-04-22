@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 /// Test the return event
 /// Test the exception when we try to purchase a good out of stock
 
-namespace PTProject.Test
+namespace PTProject.Data.Test
 {
     public class EventsTest
     {
