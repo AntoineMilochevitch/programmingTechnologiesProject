@@ -10,10 +10,12 @@ namespace PTProject.Data
     public class Catalog : ICatalog
     {
         private Dictionary<int, Good> goods;
+        public List<ProcessState>? ProcessStates { get; set; }
 
-        public Catalog() 
-        { 
+        public Catalog()
+        {
             goods = new Dictionary<int, Good>();
+            ProcessStates = new List<ProcessState>();
         }
 
         public void AddGood(int id, Good? good)

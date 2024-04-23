@@ -17,5 +17,6 @@ namespace PTProject.Data
         /// Return the name of the good associated with this id
         Dictionary<int, Good> GetCatalog();
         /// List of all the id and the good's name of the catalog 
+        List<ProcessState>? ProcessStates { get; set; }
     }
 }

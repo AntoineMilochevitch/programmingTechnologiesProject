@@ -12,13 +12,18 @@ namespace PTProject.Data
     {
         private ICatalog _catalog;
         private IUsers _users;
+        public List<Events>? _events { get; set; }
         private List<Purchase> _purchases;
+
+        public List<Events> Events { get; set; }
 
         public ProcessState(ICatalog catalog, IUsers users)
         {
             _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             _users = users ?? throw new ArgumentNullException(nameof(users));
             _purchases = new List<Purchase>();
+            _catalog.ProcessStates?.Add(this);
+            Events = new List<Events>();
         }
 
         public int NumberUser()
