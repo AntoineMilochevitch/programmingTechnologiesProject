@@ -27,6 +27,7 @@ namespace PTProject.Data.Test
         {
             _catalog = new Catalog();
             _users = new Users();
+            processState = new ProcessState(_catalog, _users);
             _events = new Events(_catalog, _users,processState);
         }
 
