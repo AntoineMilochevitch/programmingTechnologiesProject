@@ -20,13 +20,14 @@ namespace PTProject.Data.Test
         private ICatalog? _catalog;
         private IUsers? _users;
         private IEvents _events;
+        private ProcessState? processState;
 
         [SetUp]
         public void Setup()
         {
             _catalog = new Catalog();
             _users = new Users();
-            _events = new Events(_catalog, _users);
+            _events = new Events(_catalog, _users,processState);
         }
 
         /// Test the exception when we try to add an event where the user or the good doesn't exist 
