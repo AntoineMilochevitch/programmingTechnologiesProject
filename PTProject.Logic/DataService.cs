@@ -17,7 +17,7 @@ namespace PTProject.Logic
             _dataRepository = dataRepository;
         }
 
-        public User GetUser(int id)
+        public IUser GetUser(int id)
         {
             var user = _dataRepository.GetUser(id);
             if (user == null)
@@ -27,17 +27,17 @@ namespace PTProject.Logic
             return user;
         }
 
-        public void AddUser(User user)
+        public void AddUser(IUser user)
         {
             _dataRepository.AddUser(user);
         }
 
-        public void RemoveUser(User user)
+        public void RemoveUser(IUser user)
         {
             _dataRepository.RemoveUser(user);
         }
 
-        public Good GetGood(int id)
+        public IGood GetGood(int id)
         {
             var good = _dataRepository.GetGood(id);
             if (good == null)
@@ -47,7 +47,7 @@ namespace PTProject.Logic
             return good;
         }
 
-        public void AddGood(int id, Good good)
+        public void AddGood(int id, IGood good)
         {
             _dataRepository.AddGood(id, good);
         }
@@ -77,17 +77,17 @@ namespace PTProject.Logic
             return _dataRepository.NumberGood(goodId);
         }
 
-        public void AddPurchase(Purchase purchase)
+        public void AddPurchase(IPurchase purchase)
         {
             _dataRepository.AddPurchase(purchase);
         }
 
-        public bool RemovePurchase(Purchase purchase)
+        public bool RemovePurchase(IPurchase purchase)
         {
             return _dataRepository.RemovePurchase(purchase);
         }
 
-        public List<Purchase> GetPurchases()
+        public List<IPurchase> GetPurchases()
         {
             return _dataRepository.GetPurchases();
         }

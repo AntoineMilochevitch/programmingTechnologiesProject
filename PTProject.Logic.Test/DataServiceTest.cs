@@ -6,23 +6,23 @@ namespace PTProject.Logic.Test
 {
     public class TestDataRepository : IDataRepository
     {
-        public void AddGood(int id, Good good) { }
+        public void AddGood(int id, IGood good) { }
 
-        public void AddPurchase(Purchase purchase) { }
+        public void AddPurchase(IPurchase purchase) { }
 
-        public void AddUser(User user) { }
+        public void AddUser(IUser user) { }
 
-        public Good? GetGood(int id)
+        public IGood? GetGood(int id)
         {
             return id == 1 ? new Good { GoodId = 1 } : null;
         }
 
-        public List<Purchase> GetPurchases()
+        public List<IPurchase> GetPurchases()
         {
-            return new List<Purchase>();
+            return new List<IPurchase>();
         }
 
-        public User? GetUser(int id)
+        public IUser? GetUser(int id)
         {
             return id == 1 ? new User { UserId = 1 } : null;
         }
@@ -44,12 +44,12 @@ namespace PTProject.Logic.Test
             return id == 1;
         }
 
-        public bool RemovePurchase(Purchase purchase)
+        public bool RemovePurchase(IPurchase purchase)
         {
             return purchase != null;
         }
 
-        public void RemoveUser(User user) { }
+        public void RemoveUser(IUser user) { }
 
         public void Return(int userId, int goodId) { }
     }

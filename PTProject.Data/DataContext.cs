@@ -21,18 +21,18 @@ namespace PTProject.Data
             _processState = processState;
         }
 
-        public User? GetUser(int id) => _users.GetUser(id);
-        public void AddUser(User user) => _users.AddUser(user);
-        public void RemoveUser(User user) => _users.RemoveUser(user);
-        public Good? GetGood(int id) => _catalog.GetGood(id);
-        public void AddGood(int id, Good good) => _catalog.AddGood(id, good);
+        public IUser? GetUser(int id) => _users.GetUser(id);
+        public void AddUser(IUser user) => _users.AddUser(user);
+        public void RemoveUser(IUser user) => _users.RemoveUser(user);
+        public IGood? GetGood(int id) => _catalog.GetGood(id);
+        public void AddGood(int id, IGood good) => _catalog.AddGood(id, good);
         public bool RemoveGood(int id) => _catalog.RemoveGood(id);
         public void Purchase(int userId, int goodId) => _events.Purchase(userId, goodId);
         public void Return(int userId, int goodId) => _events.Return(userId, goodId);
         public int NumberUser() => _processState.NumberUser();
         public int NumberGood(int goodId) => _processState.NumberGood(goodId);
-        public void AddPurchase(Purchase purchase) => _processState.AddPurchase(purchase);
-        public bool RemovePurchase(Purchase purchase) => _processState.RemovePurchase(purchase);
-        public List<Purchase> GetPurchases() => _processState.GetPurchases();
+        public void AddPurchase(IPurchase purchase) => _processState.AddPurchase(purchase);
+        public bool RemovePurchase(IPurchase purchase) => _processState.RemovePurchase(purchase);
+        public List<IPurchase> GetPurchases() => _processState.GetPurchases();
     }
 }

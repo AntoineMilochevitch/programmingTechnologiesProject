@@ -10,7 +10,7 @@ namespace PTProject.Data
     {
         private ICatalog _catalog;
         private IUsers _users;
-        private List<Purchase> _purchases;
+        private List<IPurchase> _purchases;
 
         public ProcessState _processState;
 
@@ -19,7 +19,7 @@ namespace PTProject.Data
         {
             _catalog = catalog;
             _users = users;
-            _purchases = new List<Purchase>();
+            _purchases = new List<IPurchase>();
             _processState = processState;
         }
 
@@ -55,7 +55,7 @@ namespace PTProject.Data
 
         public void Return(int userId, int goodId)
         {
-            Purchase? purchase = null;
+            IPurchase? purchase = null;
             for (int i = 0; i < _purchases.Count; i++)
             {
                 if (_purchases[i].UserId == userId && _purchases[i].GoodId == goodId)

@@ -13,7 +13,7 @@ namespace PTProject.Data
         private ICatalog _catalog;
         private IUsers _users;
         public List<Events>? _events { get; set; }
-        private List<Purchase> _purchases;
+        private List<IPurchase> _purchases;
 
         public List<Events> Events { get; set; }
 
@@ -21,7 +21,7 @@ namespace PTProject.Data
         {
             _catalog = catalog ?? throw new ArgumentNullException(nameof(catalog));
             _users = users ?? throw new ArgumentNullException(nameof(users));
-            _purchases = new List<Purchase>();
+            _purchases = new List<IPurchase>();
             _catalog.ProcessStates?.Add(this);
             Events = new List<Events>();
         }
@@ -36,7 +36,7 @@ namespace PTProject.Data
             return _catalog.GetCatalog().Values.Count(good => good.GoodId == goodId);
         }
 
-        public void AddPurchase(Purchase purchase)
+        public void AddPurchase(IPurchase purchase)
         {
             if (purchase == null)
             {
@@ -45,7 +45,7 @@ namespace PTProject.Data
             _purchases.Add(purchase);
         }
 
-        public bool RemovePurchase(Purchase purchase)
+        public bool RemovePurchase(IPurchase purchase)
         {
             if (purchase == null)
             {
@@ -54,7 +54,7 @@ namespace PTProject.Data
             return _purchases.Remove(purchase);
         }
 
-        public List<Purchase> GetPurchases()
+        public List<IPurchase> GetPurchases()
         {
             return _purchases;
         }

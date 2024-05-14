@@ -9,14 +9,14 @@ namespace PTProject.Data
 {
     public interface IUsers
     {
-        void AddUser(User user);
+        void AddUser(IUser user);
         /// Add a new user in  the list of all users.
         /// each user have a user Id and an user name
-        void RemoveUser(User user);
+        void RemoveUser(IUser user);
         /// Remove an user of the list of all users.
-        List<User> GetAllUsers();
+        List<IUser> GetAllUsers();
         /// Return the list of all the users
-        User? GetUser(int id);
+        IUser? GetUser(int id);
         /// Return the name of the user associated with the id
     }
 }

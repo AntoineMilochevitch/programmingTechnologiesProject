@@ -10,18 +10,18 @@ namespace PTProject.Data
     public interface IDataRepository
     {
 
-        User? GetUser(int id);
-        void AddUser(User user);
-        void RemoveUser(User user);
-        Good? GetGood(int id);
-        void AddGood(int id, Good good);
+        IUser? GetUser(int id);
+        void AddUser(IUser user);
+        void RemoveUser(IUser user);
+        IGood? GetGood(int id);
+        void AddGood(int id, IGood good);
         bool RemoveGood(int id);
         void Purchase(int userId, int goodId);
         void Return(int userId, int goodId);
         int NumberUser();
         int NumberGood(int goodId);
-        void AddPurchase(Purchase purchase);
-        bool RemovePurchase(Purchase purchase);
-        List<Purchase> GetPurchases();
+        void AddPurchase(IPurchase purchase);
+        bool RemovePurchase(IPurchase purchase);
+        List<IPurchase> GetPurchases();
     }
 }

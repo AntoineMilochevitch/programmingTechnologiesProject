@@ -9,16 +9,16 @@ namespace PTProject.Data
 {
     public class Catalog : ICatalog
     {
-        private Dictionary<int, Good> goods;
+        private Dictionary<int, IGood> goods;
         public List<ProcessState>? ProcessStates { get; set; }
 
         public Catalog()
         {
-            goods = new Dictionary<int, Good>();
+            goods = new Dictionary<int, IGood>();
             ProcessStates = new List<ProcessState>();
         }
 
-        public void AddGood(int id, Good? good)
+        public void AddGood(int id, IGood? good)
         {
             if (good == null)
             {
@@ -40,13 +40,13 @@ namespace PTProject.Data
             return goods.Remove(id);
         }
 
-        public Good? GetGood(int id)
+        public IGood? GetGood(int id)
         {
-            goods.TryGetValue(id, out Good? good);
+            goods.TryGetValue(id, out IGood? good);
             return good;
         }
 
-        public Dictionary<int, Good> GetCatalog()
+        public Dictionary<int, IGood> GetCatalog()
         {
             return goods;
         }

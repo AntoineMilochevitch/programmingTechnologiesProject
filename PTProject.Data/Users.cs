@@ -9,14 +9,14 @@ namespace PTProject.Data
 {
     public class Users : IUsers
     {
-        private List<User> _users;
+        private List<IUser> _users;
 
         public Users()
         {
-            _users = new List<User>();
+            _users = new List<IUser>();
         }
 
-        public void AddUser(User user)
+        public void AddUser(IUser user)
         {
             if (user == null)
             {
@@ -30,7 +30,7 @@ namespace PTProject.Data
             _users.Add(user);
         }
 
-        public void RemoveUser(User user)
+        public void RemoveUser(IUser user)
         {
             if (user == null)
             {
@@ -39,12 +39,12 @@ namespace PTProject.Data
             _users.Remove(user);
         }
 
-        public List<User> GetAllUsers()
+        public List<IUser> GetAllUsers()
         {
             return _users;
         }
 
-        public User? GetUser(int id)
+        public IUser? GetUser(int id)
         {
             for (int i = 0; i < _users.Count; i++)
             {

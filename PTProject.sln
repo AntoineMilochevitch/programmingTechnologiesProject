@@ -7,14 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTProject.Logic", "PTProjec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTProject.Data", "PTProject.Data\PTProject.Data.csproj", "{9ED5D6DE-9650-4525-8B49-F7EED8EEE974}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5E65AA07-276A-485B-8BA7-CA0C53E32C72}"
-	ProjectSection(SolutionItems) = preProject
-		Startup.cs = Startup.cs
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTProject.Logic.Test", "PTProject.Logic.Test\PTProject.Logic.Test.csproj", "{3FB094F7-29C8-4C22-929F-B682FE4D7868}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PTProject.Data.Test", "PTProject.Data.Test\PTProject.Data.Test.csproj", "{9C25C5FE-3487-4713-8ABB-7A8D25336474}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PTProject.Data.Test", "PTProject.Data.Test\PTProject.Data.Test.csproj", "{9C25C5FE-3487-4713-8ABB-7A8D25336474}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
