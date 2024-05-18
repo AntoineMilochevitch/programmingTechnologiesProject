@@ -13,10 +13,14 @@
     <Folder Include="View\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PTProject.Data\PTProject.Data.csproj" />
-    <ProjectReference Include="..\PTProject.Service\PTProject.Service.csproj" />
-  </ItemGroup>
+<ItemGroup>
+  <Reference Include="PTProject.Service">
+    <HintPath>..\PTProject.Service\bin\Debug</HintPath>
+  </Reference>
+<Reference Include="PTProject.Data">
+    <HintPath>..\PTProject.Data\bin\Debug</HintPath>
+  </Reference>
+</ItemGroup>
 
 
 </Project>

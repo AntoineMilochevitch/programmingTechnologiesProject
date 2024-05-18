@@ -10,8 +10,8 @@ namespace Collection.FullClient.ViewModel
     public class ViewModelCommand : ICommand
     {
         //Fields
-        private readonly Action<Object> _executeAction;
-        private readonly Predicate<object> _canExcecuteAction;
+        private Action<Object> _executeAction;
+        private Predicate<object> _canExcecuteAction;
 
         //Constructors
         public ViewModelCommand(Action<object> executeAction)
@@ -37,7 +37,7 @@ namespace Collection.FullClient.ViewModel
         //Methods
         public bool CanExecute(object parameter)
         {
-            return _canExcecuteAction = null ? true : _canExcecuteAction(parameter);
+            return _canExcecuteAction == null ? true : _canExcecuteAction(parameter);
             
         }
 

@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PTProject.Data\PTProject.Data.csproj" />
-    <ProjectReference Include="..\PTProject.Service\PTProject.Service.csproj" />
   </ItemGroup>
 
 
