@@ -13,5 +13,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <ComboBox Margin="5" ItemsSource="{Binding Path=Events}"/>
+        <DataGrid Grid.Row="1" Margin="5" AutoGenerateColumns="True"
+                  />
     </Grid>
 </Window>
