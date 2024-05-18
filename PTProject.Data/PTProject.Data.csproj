@@ -1,9 +1,41 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net48</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!--<Nullable>enable</Nullable>-->
   </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Data.Linq" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{3259aa49-8aa1-44d3-9025-a0b520596a8c}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="PTProject.designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PTProject.dbml</DependentUpon>
+    </Compile>
+    <Compile Update="PTProjectDataBase.designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>PTProjectDataBase.dbml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="PTProject.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PTProject.designer.cs</LastGenOutput>
+    </None>
+    <None Update="PTProjectDataBase.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>PTProjectDataBase.designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
 
 </Project>

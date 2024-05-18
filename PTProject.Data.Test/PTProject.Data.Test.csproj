@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net48</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!--<Nullable>enable</Nullable>-->
+	<GenerateGlobalUsings>false</GenerateGlobalUsings>
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>

@@ -17,10 +17,10 @@ namespace PTProject.Data.Test
 {
     public class EventsTest
     {
-        private ICatalog? _catalog;
-        private IUsers? _users;
+        private ICatalog _catalog;
+        private IUsers _users;
         private IEvents _events;
-        private ProcessState? processState;
+        private ProcessState processState;
 
         [SetUp]
         public void Setup()

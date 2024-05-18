@@ -9,8 +9,8 @@ namespace PTProject.Data
     public interface IGood
     {
         int GoodId { get; set; }
-        string? Description { get; set; }
-        int Quantity { get; set; }
+        string Description { get; set; }
         int Price { get; set; }
+        string Name { get; set; }
     }
 }

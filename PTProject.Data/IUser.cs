@@ -9,7 +9,7 @@ namespace PTProject.Data
     public interface IUser
     {
         int UserId { get; set; }
-        string? UserName { get; set; }
-        List<Events>? Events { get; set; }
+        string UserName { get; set; }
+        List<Events> Events { get; set; }
     }
 }
