@@ -1,5 +1,4 @@
-﻿using PTProject.Service;
-using PTProject.ViewModels;
+﻿using PTProject.ViewModels;
 using System.Windows;
 
 namespace PTProject.Views
