@@ -56,8 +56,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Good.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="ViewModels\CollectionMasterViewModel.cs" />
     <Compile Include="ViewModels\UserMasterViewModel.cs" />
+    <Compile Include="Views\CollectionMasterView.xaml.cs">
+      <DependentUpon>CollectionMasterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserMasterView.xaml.cs">
       <DependentUpon>UserMasterView.xaml</DependentUpon>
     </Compile>
@@ -73,6 +78,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CollectionMasterView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserMasterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

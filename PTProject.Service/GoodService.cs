@@ -1,4 +1,5 @@
 ﻿using PTProject.Data;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace PTProject.Service
@@ -56,7 +57,17 @@ namespace PTProject.Service
 
             // Count all goods with the same name
             return _context.Catalog.Count(g => g.Name == goodName);
+
+
+        }
+        public List<Good> GetAllGoods()
+        {
+            List<Good> goods = new List<Good>();
+            foreach (var good in _context.Catalog)
+            {
+                goods.Add(good);
+            }
+            return goods;
         }
     }
-
 }
