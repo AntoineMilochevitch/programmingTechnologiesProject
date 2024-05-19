@@ -4,6 +4,7 @@ using PTProject.Service;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
 
 namespace PTProject.ViewModels
@@ -12,7 +13,7 @@ namespace PTProject.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private UserService _userService;
-        private ObservableCollection<User> _users;
+        private ObservableCollection<Presentation.Models.User> _users; // Change type to Presentation.Models.User
         private string _newUserName;
         public ICommand AddUserCommand { get; private set; }
 
@@ -20,12 +21,17 @@ namespace PTProject.ViewModels
         {
             _userService = userService;
             LoadUsers();
-            AddUserCommand = new RelayCommand(AddUser, CanAddUser); 
+            AddUserCommand = new RelayCommand(AddUser, CanAddUser);
         }
 
         private void LoadUsers()
         {
-            Users = new ObservableCollection<User>(_userService.GetAllUsers());
+            Users = new ObservableCollection<Presentation.Models.User>(
+                _userService.GetAllUsers().Select(u => new Presentation.Models.User
+                {
+                    UserId = u.UserId,
+                    UserName = u.UserName
+                }));
         }
         public string NewUserName
         {
@@ -43,8 +49,10 @@ namespace PTProject.ViewModels
 
             if (!string.IsNullOrEmpty(name)) // Check if the name is not null or empty
             {
-                User user = new User()
+                int userId = _users.Count + 1;
+                PTProject.Data.User user = new PTProject.Data.User()
                 {
+                    UserId = userId,
                     UserName = name,
                 };
                 _userService.AddUser(user);
@@ -52,13 +60,11 @@ namespace PTProject.ViewModels
             }
         }
 
-
-
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public ObservableCollection<User> Users
+        public ObservableCollection<Presentation.Models.User> Users // Change type to ObservableCollection<Presentation.Models.User>
         {
             get { return _users; }
             set
@@ -101,8 +107,5 @@ namespace PTProject.ViewModels
                 remove { CommandManager.RequerySuggested -= value; }
             }
         }
-
-
-
     }
 }
