@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace PTProject.Presentation.Models
 {
-    internal class Good
+    public class Good
     {
         public int GoodId { get; set; }
-        public string GoodName { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Price { get; set; }
+
     }
 }

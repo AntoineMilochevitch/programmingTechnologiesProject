@@ -1,0 +1,39 @@
+﻿<Window x:Class="PTProject.Presentation.Views.GoodMasterView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GoodMasterView" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="0" ItemsSource="{Binding Goods}" SelectedItem="{Binding SelectedGood}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Good ID" DisplayMemberBinding="{Binding GoodId}" />
+                    <GridViewColumn Header="Good Name" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
+                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <Label Content="Good Name" />
+            <TextBox Text="{Binding NewGoodName, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Description" />
+            <TextBox Text="{Binding NewGoodDescription, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Content="Price" />
+            <TextBox Text="{Binding NewGoodPrice, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Command="{Binding AddGoodCommand}" CommandParameter="{Binding NewGoodName}" Content="Add Good" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+            <Label Content="Selected Good Details" />
+            <Label Content="{Binding SelectedGood.Name}" />
+            <Label Content="{Binding SelectedGood.Description}" />
+            <Label Content="{Binding SelectedGood.Price}" />
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,7 +1,7 @@
 ﻿using PTProject.ViewModels;
 using System.Windows;
 
-namespace PTProject.Views
+namespace PTProject.Presentation.Views
 {
     public partial class UserMasterView : Window
     {

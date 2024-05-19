@@ -52,36 +52,29 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="Views\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Good.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="ViewModels\CollectionMasterViewModel.cs" />
+    <Compile Include="ViewModels\GoodMasterViewModel.cs" />
+    <Compile Include="ViewModels\RelayCommand.cs" />
     <Compile Include="ViewModels\UserMasterViewModel.cs" />
-    <Compile Include="Views\CollectionMasterView.xaml.cs">
-      <DependentUpon>CollectionMasterView.xaml</DependentUpon>
+    <Compile Include="Views\GoodMasterView.xaml.cs">
+      <DependentUpon>GoodMasterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserMasterView.xaml.cs">
       <DependentUpon>UserMasterView.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\GoodMasterView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\CollectionMasterView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\UserMasterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

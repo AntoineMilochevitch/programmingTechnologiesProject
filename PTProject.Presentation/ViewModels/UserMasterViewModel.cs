@@ -1,6 +1,5 @@
-﻿// UserMasterViewModel.cs
-using PTProject.Data;
-using PTProject.Service;
+﻿using PTProject.Service;
+using PTProject.Presentation.ViewModels;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -21,7 +20,7 @@ namespace PTProject.ViewModels
         {
             _userService = userService;
             LoadUsers();
-            AddUserCommand = new RelayCommand(AddUser, CanAddUser);
+            AddUserCommand = new RelayCommand(AddUser);
         }
 
         private void LoadUsers()
@@ -49,10 +48,11 @@ namespace PTProject.ViewModels
 
             if (!string.IsNullOrEmpty(name)) // Check if the name is not null or empty
             {
-                int userId = _users.Count + 1;
+                int lastUserId = (_users.Any()) ? _users.Max(u => u.UserId) : 0;
+                int newUserId = lastUserId + 1;
                 PTProject.Data.User user = new PTProject.Data.User()
                 {
-                    UserId = userId,
+                    UserId = newUserId,
                     UserName = name,
                 };
                 _userService.AddUser(user);
@@ -73,39 +73,6 @@ namespace PTProject.ViewModels
                 OnPropertyChanged("Users");
             }
         }
-
-        private bool CanAddUser(object parameter)
-        {
-            // Code to determine whether a user can be added
-            return true;
-        }
-
-        public class RelayCommand : ICommand
-        {
-            private Action<object> execute;
-            private Predicate<object> canExecute;
-
-            public RelayCommand(Action<object> execute, Predicate<object> canExecute)
-            {
-                this.execute = execute;
-                this.canExecute = canExecute;
-            }
-
-            public bool CanExecute(object parameter)
-            {
-                return canExecute == null ? true : canExecute(parameter);
-            }
-
-            public void Execute(object parameter)
-            {
-                execute(parameter);
-            }
-
-            public event EventHandler CanExecuteChanged
-            {
-                add { CommandManager.RequerySuggested += value; }
-                remove { CommandManager.RequerySuggested -= value; }
-            }
-        }
+       
     }
 }

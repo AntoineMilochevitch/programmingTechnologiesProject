@@ -1,5 +1,5 @@
 ﻿<!-- UserMasterView.xaml -->
-<Window x:Class="PTProject.Views.UserMasterView"
+<Window x:Class="PTProject.Presentation.Views.UserMasterView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="UserMasterView" Height="450" Width="800">
