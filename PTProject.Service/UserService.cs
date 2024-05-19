@@ -7,12 +7,7 @@ namespace PTProject.Service
     public class UserService
     {
         private MyDataContext _context;
-        public string UserName { get; set; }
-        public UserService()
-        {
-            // Exemple de valeur par défaut
-            UserName = "Jean Dupont";
-        }
+        
         public UserService(string connectionString)
         {
             _context = new MyDataContext(connectionString);
