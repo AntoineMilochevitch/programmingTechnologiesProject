@@ -12,19 +12,19 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Column="0" ItemsSource="{Binding Users}">
+        <ListView Grid.Column="0" ItemsSource="{Binding Goods}">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="GoodsID" Width="60" DisplayMemberBinding="{Binding UserId}" />
-                    <GridViewColumn Header="Good Name" Width="70" DisplayMemberBinding="{Binding UserName}" />
+                    <GridViewColumn Header="GoodsID" Width="60" DisplayMemberBinding="{Binding GoodId}" />
+                    <GridViewColumn Header="Good Name" Width="70" DisplayMemberBinding="{Binding GoodName}" />
                 </GridView>
             </ListView.View>
         </ListView>
 
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <Label Content="Good Name" />
-            <TextBox Text="{Binding NewUserName, UpdateSourceTrigger=PropertyChanged}" />
-            <Button Command="{Binding AddUserCommand}" CommandParameter="{Binding NewUserName}" Content="Add Good" />
+            <TextBox Text="{Binding NewGoodName, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Command="{Binding AddGoodCommand}" CommandParameter="{Binding NewGoodName}" Content="Add Good" />
         </StackPanel>
     </Grid>
 </Window>
