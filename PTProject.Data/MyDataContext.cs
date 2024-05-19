@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Linq;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Linq;
 
 namespace PTProject.Data
 {
@@ -12,7 +7,7 @@ namespace PTProject.Data
         public Table<Good> Catalog;
         public Table<User> Users;
         public Table<ProcessState> ProcessStates;
-        public Table<Events> Events;
+        public Table<Event> Events;
 
         public MyDataContext(string connection) : base(connection) { }
     }

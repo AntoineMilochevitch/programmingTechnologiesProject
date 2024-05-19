@@ -22,6 +22,7 @@ namespace PTProject.Data
 	using System;
 	
 	
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PTProject")]
 	public partial class PTProjectDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -29,7 +30,25 @@ namespace PTProject.Data
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertEvent(Event instance);
+    partial void UpdateEvent(Event instance);
+    partial void DeleteEvent(Event instance);
+    partial void InsertProcessState(ProcessState instance);
+    partial void UpdateProcessState(ProcessState instance);
+    partial void DeleteProcessState(ProcessState instance);
+    partial void InsertGood(Good instance);
+    partial void UpdateGood(Good instance);
+    partial void DeleteGood(Good instance);
+    partial void InsertUser(User instance);
+    partial void UpdateUser(User instance);
+    partial void DeleteUser(User instance);
     #endregion
+		
+		public PTProjectDataContext() : 
+				base(global::PTProject.Data.Properties.Settings.Default.PTProjectConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
 		
 		public PTProjectDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -53,6 +72,757 @@ namespace PTProject.Data
 				base(connection, mappingSource)
 		{
 			OnCreated();
+		}
+		
+		public System.Data.Linq.Table<Event> Events
+		{
+			get
+			{
+				return this.GetTable<Event>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ProcessState> ProcessStates
+		{
+			get
+			{
+				return this.GetTable<ProcessState>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Good> Goods
+		{
+			get
+			{
+				return this.GetTable<Good>();
+			}
+		}
+		
+		public System.Data.Linq.Table<User> Users
+		{
+			get
+			{
+				return this.GetTable<User>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Events")]
+	public partial class Event : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _EventId;
+		
+		private int _ProcessStateId;
+		
+		private System.DateTime _EventDate;
+		
+		private string _Description;
+		
+		private string _EventType;
+		
+		private EntityRef<ProcessState> _ProcessState;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnEventIdChanging(int value);
+    partial void OnEventIdChanged();
+    partial void OnProcessStateIdChanging(int value);
+    partial void OnProcessStateIdChanged();
+    partial void OnEventDateChanging(System.DateTime value);
+    partial void OnEventDateChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnEventTypeChanging(string value);
+    partial void OnEventTypeChanged();
+    #endregion
+		
+		public Event()
+		{
+			this._ProcessState = default(EntityRef<ProcessState>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int EventId
+		{
+			get
+			{
+				return this._EventId;
+			}
+			set
+			{
+				if ((this._EventId != value))
+				{
+					this.OnEventIdChanging(value);
+					this.SendPropertyChanging();
+					this._EventId = value;
+					this.SendPropertyChanged("EventId");
+					this.OnEventIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessStateId", DbType="Int NOT NULL")]
+		public int ProcessStateId
+		{
+			get
+			{
+				return this._ProcessStateId;
+			}
+			set
+			{
+				if ((this._ProcessStateId != value))
+				{
+					if (this._ProcessState.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnProcessStateIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProcessStateId = value;
+					this.SendPropertyChanged("ProcessStateId");
+					this.OnProcessStateIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventDate", DbType="DateTime NOT NULL")]
+		public System.DateTime EventDate
+		{
+			get
+			{
+				return this._EventDate;
+			}
+			set
+			{
+				if ((this._EventDate != value))
+				{
+					this.OnEventDateChanging(value);
+					this.SendPropertyChanging();
+					this._EventDate = value;
+					this.SendPropertyChanged("EventDate");
+					this.OnEventDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EventType", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string EventType
+		{
+			get
+			{
+				return this._EventType;
+			}
+			set
+			{
+				if ((this._EventType != value))
+				{
+					this.OnEventTypeChanging(value);
+					this.SendPropertyChanging();
+					this._EventType = value;
+					this.SendPropertyChanged("EventType");
+					this.OnEventTypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ProcessState_Event", Storage="_ProcessState", ThisKey="ProcessStateId", OtherKey="ProcessStateId", IsForeignKey=true)]
+		public ProcessState ProcessState
+		{
+			get
+			{
+				return this._ProcessState.Entity;
+			}
+			set
+			{
+				ProcessState previousValue = this._ProcessState.Entity;
+				if (((previousValue != value) 
+							|| (this._ProcessState.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ProcessState.Entity = null;
+						previousValue.Events.Remove(this);
+					}
+					this._ProcessState.Entity = value;
+					if ((value != null))
+					{
+						value.Events.Add(this);
+						this._ProcessStateId = value.ProcessStateId;
+					}
+					else
+					{
+						this._ProcessStateId = default(int);
+					}
+					this.SendPropertyChanged("ProcessState");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ProcessState")]
+	public partial class ProcessState : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ProcessStateId;
+		
+		private int _UserId;
+		
+		private int _GoodId;
+		
+		private string _Description;
+		
+		private EntitySet<Event> _Events;
+		
+		private EntityRef<Good> _Good;
+		
+		private EntityRef<User> _User;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnProcessStateIdChanging(int value);
+    partial void OnProcessStateIdChanged();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnGoodIdChanging(int value);
+    partial void OnGoodIdChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    #endregion
+		
+		public ProcessState()
+		{
+			this._Events = new EntitySet<Event>(new Action<Event>(this.attach_Events), new Action<Event>(this.detach_Events));
+			this._Good = default(EntityRef<Good>);
+			this._User = default(EntityRef<User>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProcessStateId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ProcessStateId
+		{
+			get
+			{
+				return this._ProcessStateId;
+			}
+			set
+			{
+				if ((this._ProcessStateId != value))
+				{
+					this.OnProcessStateIdChanging(value);
+					this.SendPropertyChanging();
+					this._ProcessStateId = value;
+					this.SendPropertyChanged("ProcessStateId");
+					this.OnProcessStateIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL")]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					if (this._User.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GoodId", DbType="Int NOT NULL")]
+		public int GoodId
+		{
+			get
+			{
+				return this._GoodId;
+			}
+			set
+			{
+				if ((this._GoodId != value))
+				{
+					if (this._Good.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnGoodIdChanging(value);
+					this.SendPropertyChanging();
+					this._GoodId = value;
+					this.SendPropertyChanged("GoodId");
+					this.OnGoodIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ProcessState_Event", Storage="_Events", ThisKey="ProcessStateId", OtherKey="ProcessStateId")]
+		public EntitySet<Event> Events
+		{
+			get
+			{
+				return this._Events;
+			}
+			set
+			{
+				this._Events.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Good_ProcessState", Storage="_Good", ThisKey="GoodId", OtherKey="GoodId", IsForeignKey=true)]
+		public Good Good
+		{
+			get
+			{
+				return this._Good.Entity;
+			}
+			set
+			{
+				Good previousValue = this._Good.Entity;
+				if (((previousValue != value) 
+							|| (this._Good.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Good.Entity = null;
+						previousValue.ProcessStates.Remove(this);
+					}
+					this._Good.Entity = value;
+					if ((value != null))
+					{
+						value.ProcessStates.Add(this);
+						this._GoodId = value.GoodId;
+					}
+					else
+					{
+						this._GoodId = default(int);
+					}
+					this.SendPropertyChanged("Good");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ProcessState", Storage="_User", ThisKey="UserId", OtherKey="UserId", IsForeignKey=true)]
+		public User User
+		{
+			get
+			{
+				return this._User.Entity;
+			}
+			set
+			{
+				User previousValue = this._User.Entity;
+				if (((previousValue != value) 
+							|| (this._User.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._User.Entity = null;
+						previousValue.ProcessStates.Remove(this);
+					}
+					this._User.Entity = value;
+					if ((value != null))
+					{
+						value.ProcessStates.Add(this);
+						this._UserId = value.UserId;
+					}
+					else
+					{
+						this._UserId = default(int);
+					}
+					this.SendPropertyChanged("User");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Events(Event entity)
+		{
+			this.SendPropertyChanging();
+			entity.ProcessState = this;
+		}
+		
+		private void detach_Events(Event entity)
+		{
+			this.SendPropertyChanging();
+			entity.ProcessState = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Good")]
+	public partial class Good : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _GoodId;
+		
+		private string _Description;
+		
+		private int _Price;
+		
+		private string _Name;
+		
+		private EntitySet<ProcessState> _ProcessStates;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnGoodIdChanging(int value);
+    partial void OnGoodIdChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    partial void OnPriceChanging(int value);
+    partial void OnPriceChanged();
+    partial void OnNameChanging(string value);
+    partial void OnNameChanged();
+    #endregion
+		
+		public Good()
+		{
+			this._ProcessStates = new EntitySet<ProcessState>(new Action<ProcessState>(this.attach_ProcessStates), new Action<ProcessState>(this.detach_ProcessStates));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_GoodId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int GoodId
+		{
+			get
+			{
+				return this._GoodId;
+			}
+			set
+			{
+				if ((this._GoodId != value))
+				{
+					this.OnGoodIdChanging(value);
+					this.SendPropertyChanging();
+					this._GoodId = value;
+					this.SendPropertyChanged("GoodId");
+					this.OnGoodIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(255)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="Int NOT NULL")]
+		public int Price
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnPriceChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("Price");
+					this.OnPriceChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string Name
+		{
+			get
+			{
+				return this._Name;
+			}
+			set
+			{
+				if ((this._Name != value))
+				{
+					this.OnNameChanging(value);
+					this.SendPropertyChanging();
+					this._Name = value;
+					this.SendPropertyChanged("Name");
+					this.OnNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Good_ProcessState", Storage="_ProcessStates", ThisKey="GoodId", OtherKey="GoodId")]
+		public EntitySet<ProcessState> ProcessStates
+		{
+			get
+			{
+				return this._ProcessStates;
+			}
+			set
+			{
+				this._ProcessStates.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ProcessStates(ProcessState entity)
+		{
+			this.SendPropertyChanging();
+			entity.Good = this;
+		}
+		
+		private void detach_ProcessStates(ProcessState entity)
+		{
+			this.SendPropertyChanging();
+			entity.Good = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[User]")]
+	public partial class User : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _UserId;
+		
+		private string _UserName;
+		
+		private EntitySet<ProcessState> _ProcessStates;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnUserIdChanging(int value);
+    partial void OnUserIdChanged();
+    partial void OnUserNameChanging(string value);
+    partial void OnUserNameChanged();
+    #endregion
+		
+		public User()
+		{
+			this._ProcessStates = new EntitySet<ProcessState>(new Action<ProcessState>(this.attach_ProcessStates), new Action<ProcessState>(this.detach_ProcessStates));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int UserId
+		{
+			get
+			{
+				return this._UserId;
+			}
+			set
+			{
+				if ((this._UserId != value))
+				{
+					this.OnUserIdChanging(value);
+					this.SendPropertyChanging();
+					this._UserId = value;
+					this.SendPropertyChanged("UserId");
+					this.OnUserIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserName", DbType="NVarChar(255) NOT NULL", CanBeNull=false)]
+		public string UserName
+		{
+			get
+			{
+				return this._UserName;
+			}
+			set
+			{
+				if ((this._UserName != value))
+				{
+					this.OnUserNameChanging(value);
+					this.SendPropertyChanging();
+					this._UserName = value;
+					this.SendPropertyChanged("UserName");
+					this.OnUserNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_ProcessState", Storage="_ProcessStates", ThisKey="UserId", OtherKey="UserId")]
+		public EntitySet<ProcessState> ProcessStates
+		{
+			get
+			{
+				return this._ProcessStates;
+			}
+			set
+			{
+				this._ProcessStates.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ProcessStates(ProcessState entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = this;
+		}
+		
+		private void detach_ProcessStates(ProcessState entity)
+		{
+			this.SendPropertyChanging();
+			entity.User = null;
 		}
 	}
 }

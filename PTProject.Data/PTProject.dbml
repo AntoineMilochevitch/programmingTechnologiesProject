@@ -1,1 +1,40 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PTProject" Class="PTProjectDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Instrumentation\PTProject.mdf;Integrated Security=True" SettingsObjectName="PTProject.Data.Properties.Settings" SettingsPropertyName="PTProjectConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Events" Member="Events">
+    <Type Name="Event">
+      <Column Name="EventId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ProcessStateId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EventDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="EventType" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="ProcessState_Event" Member="ProcessState" ThisKey="ProcessStateId" OtherKey="ProcessStateId" Type="ProcessState" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ProcessState" Member="ProcessStates">
+    <Type Name="ProcessState">
+      <Column Name="ProcessStateId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="GoodId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="ProcessState_Event" Member="Events" ThisKey="ProcessStateId" OtherKey="ProcessStateId" Type="Event" />
+      <Association Name="Good_ProcessState" Member="Good" ThisKey="GoodId" OtherKey="GoodId" Type="Good" IsForeignKey="true" />
+      <Association Name="User_ProcessState" Member="User" ThisKey="UserId" OtherKey="UserId" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Good" Member="Goods">
+    <Type Name="Good">
+      <Column Name="GoodId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="Good_ProcessState" Member="ProcessStates" ThisKey="GoodId" OtherKey="GoodId" Type="ProcessState" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="UserName" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
+      <Association Name="User_ProcessState" Member="ProcessStates" ThisKey="UserId" OtherKey="UserId" Type="ProcessState" />
+    </Type>
+  </Table>
+</Database>

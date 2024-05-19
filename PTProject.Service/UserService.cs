@@ -1,9 +1,6 @@
 ﻿using PTProject.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PTProject.Service
 {
@@ -60,6 +57,15 @@ namespace PTProject.Service
         {
             return _context.Users.Count();
         }
+
+        public List<User> GetAllUsers()
+        {
+            List<User> users = new List<User>();
+            foreach (var user in _context.Users)
+            {
+                users.Add(user);
+            }
+            return users;
+        }
     }
 }
-

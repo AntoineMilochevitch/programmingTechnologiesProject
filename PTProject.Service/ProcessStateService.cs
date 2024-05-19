@@ -1,9 +1,6 @@
 ﻿using PTProject.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PTProject.Service
 {
@@ -86,7 +83,7 @@ namespace PTProject.Service
         private void CreateEvent(ProcessState processState, string eventType)
         {
             // Create a new event
-            Events evt = new Events
+            Event evt = new Event
             {
                 Description = $"ProcessState with ID {processState.ProcessStateId} was updated to {eventType}",
                 EventType = eventType,
