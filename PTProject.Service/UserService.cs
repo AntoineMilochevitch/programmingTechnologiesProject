@@ -1,24 +1,35 @@
 ﻿using PTProject.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PTProject.Service
 {
-    public class UserService
+
+
+    public class UserService : IUserService
     {
-        private MyDataContext _context;
-        
-        public UserService(string connectionString)
+        protected PTProjectDataContext _context;
+        public UserService(PTProjectDataContext context)
         {
-            _context = new MyDataContext(connectionString);
+            _context = context;
+            _context.Log = Console.Out;
         }
 
-        // Create
-        public void AddUser(User user)
+        public virtual void AddUser(User user)
         {
-            _context.Users.InsertOnSubmit(user);
-            _context.SubmitChanges();
+            try
+            {
+                _context.Users.InsertOnSubmit(user);
+                _context.SubmitChanges();
+                Console.WriteLine($"User added: ID = {user.UserId}, Name = {user.UserName}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
+
 
         // Read
         public User GetUser(int id)
@@ -53,7 +64,7 @@ namespace PTProject.Service
             return _context.Users.Count();
         }
 
-        public List<User> GetAllUsers()
+        public virtual List<User> GetAllUsers()
         {
             List<User> users = new List<User>();
             foreach (var user in _context.Users)
@@ -61,6 +72,24 @@ namespace PTProject.Service
                 users.Add(user);
             }
             return users;
+        }
+
+
+        public List<Good> GetPurchasedGoods(int userId)
+        {
+            List<Good> purchasedGoods = new List<Good>();
+
+            var processStates = _context.ProcessStates.Where(ps => ps.UserId == userId && ps.Description == "BUY");
+            foreach (var processState in processStates)
+            {
+                Good good = _context.Goods.SingleOrDefault(g => g.GoodId == processState.GoodId);
+                if (good != null)
+                {
+                    purchasedGoods.Add(good);
+                }
+            }
+
+            return purchasedGoods;
         }
     }
 }

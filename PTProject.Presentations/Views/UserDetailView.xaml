@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="PTProject.Presentation.Views.UserDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="200" Width="400">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Label Content="User Name" />
+            <TextBox  />
+            <Button Content="Update UserName" />
+            <Label Content="Purchased Goods" />
+            <ListView ItemsSource="{Binding PurchasedGoods}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Good Name" DisplayMemberBinding="{Binding Name}" />
+                        <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+        </StackPanel>
+    </Grid>
+</UserControl>

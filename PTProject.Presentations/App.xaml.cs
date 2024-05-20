@@ -1,4 +1,5 @@
-﻿using PTProject.Presentation.ViewModels;
+﻿using PTProject.Data;
+using PTProject.Presentation.ViewModels;
 using PTProject.Presentation.Views;
 using PTProject.Service;
 using PTProject.ViewModels;
@@ -18,10 +19,11 @@ namespace PTProject.Presentation
 
             // Create connection to db
             string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnectionString"].ConnectionString;
+            PTProjectDataContext context = new PTProjectDataContext(connectionString);
 
             // Create an instance of your ViewModel
-            UserMasterViewModel viewModelUser = new UserMasterViewModel(new UserService(connectionString));
-            GoodMasterViewModel viewModelGood = new GoodMasterViewModel(new GoodService(connectionString));
+            UserMasterViewModel viewModelUser = new UserMasterViewModel(new UserService(context));
+            GoodMasterViewModel viewModelGood = new GoodMasterViewModel(new GoodService(context),new ProcessStateService(context));
 
             // Create an instance of your View, passing the ViewModel to its constructor
             UserMasterView viewUser = new UserMasterView(viewModelUser);

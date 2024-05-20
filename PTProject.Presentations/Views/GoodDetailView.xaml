@@ -10,6 +10,10 @@
             <TextBox Text="{Binding Description}" IsReadOnly="True" />
             <Label Content="Price" />
             <TextBox Text="{Binding Price}" IsReadOnly="True" />
+            <Label Content="User ID" />
+            <TextBox />
+            <Button Content="Buy" />
+
         </StackPanel>
     </Grid>
 </UserControl>

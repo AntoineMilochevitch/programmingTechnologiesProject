@@ -5,25 +5,36 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using PTProject.Presentation.Views;
+using System.Collections.Generic;
+using PTProject.Data;
 
 namespace PTProject.ViewModels
 {
     public class UserMasterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private UserService _userService;
+        private IUserService _userService;
         private ObservableCollection<Presentation.Models.User> _users; // Change type to Presentation.Models.User
         private string _newUserName;
         public ICommand AddUserCommand { get; private set; }
+        public ICommand SelectUserCommand { get; private set; }
 
-        public UserMasterViewModel(UserService userService)
+
+        public UserDetailView DetailView { get; set; }
+        private Presentation.Models.User _selectedUser;
+        private List<Presentation.Models.Good> _purchasedGoods;
+
+        public UserMasterViewModel(IUserService userService)
         {
             _userService = userService;
             LoadUsers();
             AddUserCommand = new RelayCommand(AddUser);
+            SelectUserCommand = new RelayCommand(ShowUserDetails);
+
         }
 
-        private void LoadUsers()
+        public void LoadUsers()
         {
             Users = new ObservableCollection<Presentation.Models.User>(
                 _userService.GetAllUsers().Select(u => new Presentation.Models.User
@@ -42,7 +53,7 @@ namespace PTProject.ViewModels
             }
         }
 
-        private void AddUser(object obj)
+        public void AddUser(object obj)
         {
             string name = obj as string; // Cast the object to string
 
@@ -50,7 +61,7 @@ namespace PTProject.ViewModels
             {
                 int lastUserId = (_users.Any()) ? _users.Max(u => u.UserId) : 0;
                 int newUserId = lastUserId + 1;
-                PTProject.Data.User user = new PTProject.Data.User()
+                Data.User user = new Data.User()
                 {
                     UserId = newUserId,
                     UserName = name,
@@ -58,7 +69,12 @@ namespace PTProject.ViewModels
                 _userService.AddUser(user);
                 LoadUsers();
             }
+            else
+            {
+                Console.WriteLine("The user name is null or empty.");
+            }
         }
+
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -74,5 +90,45 @@ namespace PTProject.ViewModels
             }
         }
 
+
+        private void ShowUserDetails(object obj)
+        {
+            SelectedUser = obj as Presentation.Models.User;
+            UserDetailView detailView = new UserDetailView();
+            detailView.DataContext = SelectedUser;
+            DetailView = detailView;
+            OnPropertyChanged("DetailView");
+        }
+        public List<Presentation.Models.Good> PurchasedGoods
+        {
+            get { return _purchasedGoods; }
+            set
+            {
+                _purchasedGoods = value;
+                OnPropertyChanged("PurchasedGoods");
+            }
+        }
+        public Presentation.Models.User SelectedUser
+        {
+            get { return _selectedUser; }
+            set
+            {
+                _selectedUser = value;
+                OnPropertyChanged("SelectedUser");
+
+                // Get the purchased goods when a new user is selected
+                if (_selectedUser != null)
+                {
+                    PurchasedGoods = _userService.GetPurchasedGoods(_selectedUser.UserId)
+                        .Select(g => new Presentation.Models.Good
+                        {
+                            GoodId = g.GoodId,
+                            Name = g.Name,
+                            Description = g.Description,
+                            Price = g.Price
+                        }).ToList();
+                }
+            }
+        }
     }
 }

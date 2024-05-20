@@ -4,22 +4,24 @@ using PTProject.Service;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 public class GoodMasterViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
-    private GoodService _goodService;
+    private IGoodService _goodService;
     private ObservableCollection<PTProject.Presentation.Models.Good> _goods; // Change type to Presentation.Models.Good
     private string _newGoodName;
     public ICommand AddGoodCommand { get; private set; }
-
     public string NewGoodDescription { get; set; }
     public int NewGoodPrice { get; set; }
     public GoodDetailView DetailView { get; set; }
 
     private PTProject.Presentation.Models.Good _selectedGood;
+    public int UserId { get; set; }
+
+
+    private IProcessStateService _processStateService;
     public PTProject.Presentation.Models.Good SelectedGood
     {
         get { return _selectedGood; }
@@ -32,9 +34,10 @@ public class GoodMasterViewModel : INotifyPropertyChanged
 
     public ICommand ShowGoodDetailsCommand { get; private set; }
 
-    public GoodMasterViewModel(GoodService goodService)
+    public GoodMasterViewModel(IGoodService goodService, IProcessStateService processStateService)
     {
         _goodService = goodService;
+        _processStateService = processStateService;
         LoadGoods();
         AddGoodCommand = new RelayCommand(AddGood);
         ShowGoodDetailsCommand = new RelayCommand(ShowGoodDetails);
@@ -101,4 +104,6 @@ public class GoodMasterViewModel : INotifyPropertyChanged
             OnPropertyChanged("Goods");
         }
     }
+
+   
 }

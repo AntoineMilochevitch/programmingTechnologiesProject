@@ -4,17 +4,16 @@ using System.Linq;
 
 namespace PTProject.Service
 {
-    public class ProcessStateService
+    public class ProcessStateService : IProcessStateService
     {
-        private MyDataContext _context;
+        private PTProjectDataContext _context;
         private GoodService _goodService;
         private string _connectionString;
 
-        public ProcessStateService(string connectionString)
+        public ProcessStateService(PTProjectDataContext context)
         {
-            _context = new MyDataContext(connectionString);
-            _goodService = new GoodService(connectionString);
-            _connectionString = connectionString;
+            _context = context;
+            _goodService = new GoodService(context);
         }
 
         // Create
@@ -37,7 +36,7 @@ namespace PTProject.Service
             if (processState != null)
             {
                 // Get the associated Good
-                Good good = _context.Catalog.SingleOrDefault(g => g.GoodId == processState.GoodId);
+                Good good = _context.Goods.SingleOrDefault(g => g.GoodId == processState.GoodId);
 
                 if (good != null)
                 {
@@ -50,7 +49,7 @@ namespace PTProject.Service
                             CreateEvent(updatedProcessState, "Purchase");
 
                             // Remove the Good from the Catalog
-                            _context.Catalog.DeleteOnSubmit(good);
+                            _context.Goods.DeleteOnSubmit(good);
                         }
                         else
                         {
@@ -71,7 +70,7 @@ namespace PTProject.Service
                             Price = good.Price,
 
                         };
-                        _context.Catalog.InsertOnSubmit(newGood);
+                        _context.Goods.InsertOnSubmit(newGood);
                     }
 
                     _context.SubmitChanges();
@@ -90,7 +89,7 @@ namespace PTProject.Service
             };
 
             // Use the EventsService to add the new event
-            EventsService eventsService = new EventsService(_connectionString);
+            EventsService eventsService = new EventsService(_context);
             eventsService.AddEvent(evt);
         }
 

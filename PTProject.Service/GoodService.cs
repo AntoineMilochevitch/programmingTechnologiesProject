@@ -1,35 +1,37 @@
 ﻿using PTProject.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PTProject.Service
 {
-    public class GoodService
+    public class GoodService : IGoodService
     {
-        private MyDataContext _context;
+        private PTProjectDataContext _context;
 
-        public GoodService(string connectionString)
+        public GoodService(PTProjectDataContext context)
         {
-            _context = new MyDataContext(connectionString);
+            _context = context;
+            _context.Log = Console.Out;
         }
 
         // Create
         public void AddGood(Good good)
         {
-            _context.Catalog.InsertOnSubmit(good);
+            _context.Goods.InsertOnSubmit(good);
             _context.SubmitChanges();
         }
 
         // Read
         public Good GetGood(int id)
         {
-            return _context.Catalog.SingleOrDefault(g => g.GoodId == id);
+            return _context.Goods.SingleOrDefault(g => g.GoodId == id);
         }
 
         // Update
         public void UpdateGood(Good updatedGood)
         {
-            Good good = _context.Catalog.SingleOrDefault(g => g.GoodId == updatedGood.GoodId);
+            Good good = _context.Goods.SingleOrDefault(g => g.GoodId == updatedGood.GoodId);
             if (good != null)
             {
                 good.Description = updatedGood.Description;
@@ -42,10 +44,10 @@ namespace PTProject.Service
         // Delete
         public void DeleteGood(int id)
         {
-            Good good = _context.Catalog.SingleOrDefault(g => g.GoodId == id);
+            Good good = _context.Goods.SingleOrDefault(g => g.GoodId == id);
             if (good != null)
             {
-                _context.Catalog.DeleteOnSubmit(good);
+                _context.Goods.DeleteOnSubmit(good);
                 _context.SubmitChanges();
             }
         }
@@ -53,17 +55,17 @@ namespace PTProject.Service
         public int NumberGood(int goodId)
         {
             // Get the name of the good with the given ID
-            string goodName = _context.Catalog.SingleOrDefault(g => g.GoodId == goodId)?.Name;
+            string goodName = _context.Goods.SingleOrDefault(g => g.GoodId == goodId)?.Name;
 
             // Count all goods with the same name
-            return _context.Catalog.Count(g => g.Name == goodName);
+            return _context.Goods.Count(g => g.Name == goodName);
 
 
         }
         public List<Good> GetAllGoods()
         {
             List<Good> goods = new List<Good>();
-            foreach (var good in _context.Catalog)
+            foreach (var good in _context.Goods)
             {
                 goods.Add(good);
             }

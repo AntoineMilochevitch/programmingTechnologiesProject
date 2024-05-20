@@ -5,11 +5,11 @@ namespace PTProject.Service
 {
     public class EventsService
     {
-        private MyDataContext _context;
+        private PTProjectDataContext _context;
 
-        public EventsService(string connectionString)
+        public EventsService(PTProjectDataContext context)
         {
-            _context = new MyDataContext(connectionString);
+            _context = context;
         }
 
         // Create
