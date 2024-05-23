@@ -1,55 +1,53 @@
 ﻿using PTProject.Data;
 using System;
-using System.Linq;
 
 namespace PTProject.Service
 {
     public class ProcessStateService : IProcessStateService
     {
-        private PTProjectDataContext _context;
-        private GoodService _goodService;
-        private string _connectionString;
+        private IUnitOfWork _unitOfWork;
+        private IGoodService _goodService;
 
-        public ProcessStateService(PTProjectDataContext context)
+        public ProcessStateService(IUnitOfWork unitOfWork, IGoodService goodService)
         {
-            _context = context;
-            _goodService = new GoodService(context);
+            _unitOfWork = unitOfWork;
+            _goodService = goodService;
         }
 
         // Create
         public void AddProcessState(ProcessState processState)
         {
-            _context.ProcessStates.InsertOnSubmit(processState);
-            _context.SubmitChanges();
+            _unitOfWork.ProcessStateRepository.Add(processState);
+            _unitOfWork.Save();
         }
 
         // Read
         public ProcessState GetProcessState(int id)
         {
-            return _context.ProcessStates.SingleOrDefault(ps => ps.ProcessStateId == id);
+            return _unitOfWork.ProcessStateRepository.GetById(id);
         }
 
         // Update
         public void UpdateProcessState(ProcessState updatedProcessState, string eventType)
         {
-            ProcessState processState = _context.ProcessStates.SingleOrDefault(ps => ps.ProcessStateId == updatedProcessState.ProcessStateId);
+            ProcessState processState = _unitOfWork.ProcessStateRepository.GetById(updatedProcessState.ProcessStateId);
             if (processState != null)
             {
                 // Get the associated Good
-                Good good = _context.Goods.SingleOrDefault(g => g.GoodId == processState.GoodId);
+                Good good = _unitOfWork.GoodRepository.GetById(processState.GoodId);
 
                 if (good != null)
                 {
                     // Adjust the description and create the event based on the event type
                     if (eventType == "Purchase")
                     {
-                        if (_goodService.NumberGood(good.GoodId) > 0)
+                        if (_goodService.GetGoodById(good.GoodId) != null)
                         {
                             processState.Description = "Buy";
                             CreateEvent(updatedProcessState, "Purchase");
 
                             // Remove the Good from the Catalog
-                            _context.Goods.DeleteOnSubmit(good);
+                            _unitOfWork.GoodRepository.Delete(good);
                         }
                         else
                         {
@@ -70,14 +68,13 @@ namespace PTProject.Service
                             Price = good.Price,
 
                         };
-                        _context.Goods.InsertOnSubmit(newGood);
+                        _unitOfWork.GoodRepository.Add(newGood);
                     }
 
-                    _context.SubmitChanges();
+                    _unitOfWork.Save();
                 }
             }
         }
-
 
         private void CreateEvent(ProcessState processState, string eventType)
         {
@@ -89,23 +86,19 @@ namespace PTProject.Service
             };
 
             // Use the EventsService to add the new event
-            EventsService eventsService = new EventsService(_context);
+            EventsService eventsService = new EventsService(_unitOfWork);
             eventsService.AddEvent(evt);
         }
-
-
 
         // Delete
         public void DeleteProcessState(int id)
         {
-            ProcessState processState = _context.ProcessStates.SingleOrDefault(ps => ps.ProcessStateId == id);
+            ProcessState processState = _unitOfWork.ProcessStateRepository.GetById(id);
             if (processState != null)
             {
-                _context.ProcessStates.DeleteOnSubmit(processState);
-                _context.SubmitChanges();
+                _unitOfWork.ProcessStateRepository.Delete(processState);
+                _unitOfWork.Save();
             }
         }
     }
 }
-
-

@@ -8,17 +8,16 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ListView Grid.Column="0" ItemsSource="{Binding Goods}" SelectedItem="{Binding SelectedGood}">
+        <ListView Grid.Column="0" ItemsSource="{Binding Goods}" SelectedItem="{Binding SelectedGood}" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Good ID" DisplayMemberBinding="{Binding GoodId}" />
                     <GridViewColumn Header="Good Name" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Description" DisplayMemberBinding="{Binding Description}" />
-                    <GridViewColumn Header="Price" DisplayMemberBinding="{Binding Price}" />
                 </GridView>
             </ListView.View>
         </ListView>
-
+        
+        <ContentControl Grid.Column="1" Content="{Binding DetailView}" />
         <StackPanel Grid.Column="1" Orientation="Vertical">
             <Label Content="Good Name" />
             <TextBox Text="{Binding NewGoodName, UpdateSourceTrigger=PropertyChanged}" />
@@ -27,13 +26,6 @@
             <Label Content="Price" />
             <TextBox Text="{Binding NewGoodPrice, UpdateSourceTrigger=PropertyChanged}" />
             <Button Command="{Binding AddGoodCommand}" CommandParameter="{Binding NewGoodName}" Content="Add Good" />
-        </StackPanel>
-
-        <StackPanel Grid.Column="1" Orientation="Vertical">
-            <Label Content="Selected Good Details" />
-            <Label Content="{Binding SelectedGood.Name}" />
-            <Label Content="{Binding SelectedGood.Description}" />
-            <Label Content="{Binding SelectedGood.Price}" />
         </StackPanel>
     </Grid>
 </Window>

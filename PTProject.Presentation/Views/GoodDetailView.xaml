@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="PTProject.Presentation.Views.GoodDetailView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="200" Width="400">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Label Content="Good Name" />
+            <TextBox Text="{Binding Name}" IsReadOnly="True" />
+            <Label Content="Description" />
+            <TextBox Text="{Binding Description}" IsReadOnly="True" />
+            <Label Content="Price" />
+            <TextBox Text="{Binding Price}" IsReadOnly="True" />
+            <Label Content="User ID" />
+            <TextBox />
+            <Button Content="Buy" />
+
+        </StackPanel>
+    </Grid>
+</UserControl>

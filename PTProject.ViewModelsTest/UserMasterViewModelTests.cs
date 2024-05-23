@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿/*using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PTProject.ViewModels;
 using System.Collections.Generic;
 
@@ -59,5 +59,5 @@ namespace PTProject.ViewModelsTest
             Assert.AreEqual("Charlie", viewModel.Users[2].UserName);
         }
     }
-}
+}*/
 

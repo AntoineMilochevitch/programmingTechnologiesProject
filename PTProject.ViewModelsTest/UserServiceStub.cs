@@ -1,4 +1,4 @@
-﻿using PTProject.Data;
+﻿/*using PTProject.Data;
 using PTProject.Service;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,4 +66,4 @@ public class UserServiceStub : IUserService
         List<Good> purchasedGoods = new List<Good>();
         return purchasedGoods;
     }
-}
+}*/

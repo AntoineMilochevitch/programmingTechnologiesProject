@@ -1,5 +1,4 @@
 ﻿using PTProject.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,69 +6,74 @@ namespace PTProject.Service
 {
     public class GoodService : IGoodService
     {
-        private PTProjectDataContext _context;
+        private IUnitOfWork _unitOfWork;
 
-        public GoodService(PTProjectDataContext context)
+        public GoodService(IUnitOfWork unitOfWork)
         {
-            _context = context;
-            _context.Log = Console.Out;
+            _unitOfWork = unitOfWork;
         }
 
-        // Create
-        public void AddGood(Good good)
+        public IEnumerable<GoodDTO> GetAllGoods()
         {
-            _context.Goods.InsertOnSubmit(good);
-            _context.SubmitChanges();
+            return _unitOfWork.GoodRepository.GetAll().Select(good => MapToDTO(good)).ToList();
         }
 
-        // Read
-        public Good GetGood(int id)
+        public GoodDTO GetGoodById(int id)
         {
-            return _context.Goods.SingleOrDefault(g => g.GoodId == id);
+            Good good = _unitOfWork.GoodRepository.GetById(id);
+            return good != null ? MapToDTO(good) : null;
         }
 
-        // Update
-        public void UpdateGood(Good updatedGood)
+        public void AddGood(GoodDTO goodDTO)
         {
-            Good good = _context.Goods.SingleOrDefault(g => g.GoodId == updatedGood.GoodId);
-            if (good != null)
-            {
-                good.Description = updatedGood.Description;
-                good.Name = updatedGood.Name;
-                good.Price = updatedGood.Price;
-                _context.SubmitChanges();
-            }
+            Good good = MapToEntity(goodDTO);
+            _unitOfWork.GoodRepository.Add(good);
+            _unitOfWork.Save();
         }
 
-        // Delete
+        public void UpdateGood(GoodDTO goodDTO)
+        {
+            Good good = MapToEntity(goodDTO);
+            _unitOfWork.GoodRepository.Update(good);
+            _unitOfWork.Save();
+        }
+
         public void DeleteGood(int id)
         {
-            Good good = _context.Goods.SingleOrDefault(g => g.GoodId == id);
+            Good good = _unitOfWork.GoodRepository.GetById(id);
             if (good != null)
             {
-                _context.Goods.DeleteOnSubmit(good);
-                _context.SubmitChanges();
+                _unitOfWork.GoodRepository.Delete(good);
+                _unitOfWork.Save();
             }
         }
 
-        public int NumberGood(int goodId)
+        public int NumberGood(string name)
         {
-            // Get the name of the good with the given ID
-            string goodName = _context.Goods.SingleOrDefault(g => g.GoodId == goodId)?.Name;
-
-            // Count all goods with the same name
-            return _context.Goods.Count(g => g.Name == goodName);
-
-
+            return _unitOfWork.GoodRepository.GetAll().Count(g => g.Name == name);
         }
-        public List<Good> GetAllGoods()
+
+        private GoodDTO MapToDTO(Good good)
         {
-            List<Good> goods = new List<Good>();
-            foreach (var good in _context.Goods)
+            return new GoodDTO
             {
-                goods.Add(good);
-            }
-            return goods;
+                GoodId = good.GoodId,
+                Name = good.Name,
+                Description = good.Description,
+                Price = good.Price,
+            };
+        }
+
+        private Good MapToEntity(GoodDTO goodDTO)
+        {
+            return new Good
+            {
+                GoodId = goodDTO.GoodId,
+                Name = goodDTO.Name,
+                Description = goodDTO.Description,
+                Price = goodDTO.Price,
+            };
         }
     }
+
 }

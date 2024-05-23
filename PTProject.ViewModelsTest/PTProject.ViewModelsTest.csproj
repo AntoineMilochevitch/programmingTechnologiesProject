@@ -61,10 +61,6 @@
       <Project>{9ED5D6DE-9650-4525-8B49-F7EED8EEE974}</Project>
       <Name>PTProject.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PTProject.Presentations\PTProject.Presentation.csproj">
-      <Project>{e8b7617f-be19-4885-8297-e68135bd7ad7}</Project>
-      <Name>PTProject.Presentation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PTProject.Service\PTProject.Service.csproj">
       <Project>{eb62170c-0951-44af-8e24-1ba5bb91cb16}</Project>
       <Name>PTProject.Service</Name>

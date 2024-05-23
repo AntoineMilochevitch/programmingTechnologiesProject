@@ -5,12 +5,12 @@ namespace PTProject.Service
 {
     public interface IUserService
     {
-        void AddUser(User user);
-        User GetUser(int id);
-        void UpdateUser(User updatedUser);
+        void AddUser(UserDTO userDTO);
+        UserDTO GetUser(int id);
+        void UpdateUser(UserDTO userDTO);
         void DeleteUser(int id);
         int NumberUser();
-        List<User> GetAllUsers();
-        List<Good> GetPurchasedGoods(int userId);
+        List<UserDTO> GetAllUsers();
+        List<GoodDTO> GetPurchasedGoods(int userId);
     }
 }

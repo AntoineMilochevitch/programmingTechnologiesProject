@@ -1,91 +1,98 @@
 ﻿using PTProject.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PTProject.Service
 {
-
-
     public class UserService : IUserService
     {
-        protected PTProjectDataContext _context;
-        public UserService(PTProjectDataContext context)
+        private IUnitOfWork _unitOfWork;
+
+        public UserService(IUnitOfWork unitOfWork)
         {
-            _context = context;
-            _context.Log = Console.Out;
+            _unitOfWork = unitOfWork;
+        }
+        private UserDTO MapToDTO(User user)
+        {
+            return new UserDTO
+            {
+                UserId = user.UserId,
+                UserName = user.UserName,
+            };
         }
 
-        public virtual void AddUser(User user)
+        private User MapToEntity(UserDTO userDTO)
         {
-            try
+            return new User
             {
-                _context.Users.InsertOnSubmit(user);
-                _context.SubmitChanges();
-                Console.WriteLine($"User added: ID = {user.UserId}, Name = {user.UserName}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
-            }
+                UserId = userDTO.UserId,
+                UserName = userDTO.UserName,
+            };
         }
-
+        public virtual void AddUser(UserDTO userDTO)
+        {
+            User user = MapToEntity(userDTO);
+            _unitOfWork.UserRepository.Add(user);
+            _unitOfWork.Save();
+        }
 
         // Read
-        public User GetUser(int id)
+        public UserDTO GetUser(int id)
         {
-            return _context.Users.SingleOrDefault(u => u.UserId == id);
+            User user = _unitOfWork.UserRepository.GetById(id);
+            return user != null ? MapToDTO(user) : null;
         }
 
         // Update
-        public void UpdateUser(User updatedUser)
+        public void UpdateUser(UserDTO userDTO)
         {
-            User user = _context.Users.SingleOrDefault(u => u.UserId == updatedUser.UserId);
-            if (user != null)
-            {
-                user.UserName = updatedUser.UserName;
-                _context.SubmitChanges();
-            }
+            User user = MapToEntity(userDTO);
+            _unitOfWork.UserRepository.Update(user);
+            _unitOfWork.Save();
         }
 
         // Delete
         public void DeleteUser(int id)
         {
-            User user = _context.Users.SingleOrDefault(u => u.UserId == id);
+            User user = _unitOfWork.UserRepository.GetById(id);
             if (user != null)
             {
-                _context.Users.DeleteOnSubmit(user);
-                _context.SubmitChanges();
+                _unitOfWork.UserRepository.Delete(user);
+                _unitOfWork.Save();
             }
         }
 
         public int NumberUser()
         {
-            return _context.Users.Count();
+            return _unitOfWork.UserRepository.GetAll().Count();
         }
 
-        public virtual List<User> GetAllUsers()
+        public virtual List<UserDTO> GetAllUsers()
         {
-            List<User> users = new List<User>();
-            foreach (var user in _context.Users)
+            return _unitOfWork.UserRepository.GetAll().Select(user => MapToDTO(user)).ToList();
+        }
+
+        private GoodDTO MapGoodToDTO(Good good)
+        {
+            return new GoodDTO
             {
-                users.Add(user);
-            }
-            return users;
+                GoodId = good.GoodId,
+                Name = good.Name,
+                Description = good.Description,
+                Price = good.Price,
+            };
         }
-
-
-        public List<Good> GetPurchasedGoods(int userId)
+        public List<GoodDTO> GetPurchasedGoods(int userId)
         {
-            List<Good> purchasedGoods = new List<Good>();
+            List<GoodDTO> purchasedGoods = new List<GoodDTO>();
 
-            var processStates = _context.ProcessStates.Where(ps => ps.UserId == userId && ps.Description == "BUY");
+            var processStates = _unitOfWork.ProcessStateRepository.GetAll().Where(ps => ps.UserId == userId && ps.Description == "BUY");
             foreach (var processState in processStates)
             {
-                Good good = _context.Goods.SingleOrDefault(g => g.GoodId == processState.GoodId);
+                Good good = _unitOfWork.GoodRepository.GetById(processState.GoodId);
                 if (good != null)
                 {
-                    purchasedGoods.Add(good);
+                    purchasedGoods.Add(MapGoodToDTO(good));
                 }
             }
 

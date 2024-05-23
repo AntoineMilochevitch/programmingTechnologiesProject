@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PTProject.Presentation.Properties
+namespace PTProject.Presentations.Properties
 {
 
 

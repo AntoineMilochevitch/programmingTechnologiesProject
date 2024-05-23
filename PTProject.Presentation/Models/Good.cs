@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PTProject.Presentation.Models
+﻿namespace PTProject.Presentation.Models
 {
     public class Good
     {

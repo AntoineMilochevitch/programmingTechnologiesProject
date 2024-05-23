@@ -1,92 +1,132 @@
-﻿using PTProject.Presentation.ViewModels;
+﻿using PTProject.Presentation.Views;
 using PTProject.Service;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
+using PTProject.Presentation.Models;
 
-public class GoodMasterViewModel : INotifyPropertyChanged
-{
-    public event PropertyChangedEventHandler PropertyChanged;
-    private GoodService _goodService;
-    private ObservableCollection<PTProject.Presentation.Models.Good> _goods; // Change type to Presentation.Models.Good
-    private string _newGoodName;
-    public ICommand AddGoodCommand { get; private set; }
-
-    public string NewGoodDescription { get; set; }
-    public int NewGoodPrice { get; set; }
-
-    private PTProject.Presentation.Models.Good _selectedGood;
-    public PTProject.Presentation.Models.Good SelectedGood
+namespace PTProject.Presentation.ViewModels {
+    public class GoodMasterViewModel : INotifyPropertyChanged
     {
-        get { return _selectedGood; }
-        set
+        public event PropertyChangedEventHandler PropertyChanged;
+        private IGoodService _goodService;
+        private ObservableCollection<Good> _goods; // Change type to Presentation.Models.Good
+        private string _newGoodName;
+        public ICommand AddGoodCommand { get; private set; }
+        public string NewGoodDescription { get; set; }
+        public int NewGoodPrice { get; set; }
+        public GoodDetailView DetailView { get; set; }
+
+        private Good _selectedGood;
+        public int UserId { get; set; }
+
+
+        private IProcessStateService _processStateService;
+        public Good SelectedGood
         {
-            _selectedGood = value;
-            OnPropertyChanged("SelectedGood");
-        }
-    }
-
-    public GoodMasterViewModel(GoodService goodService)
-    {
-        _goodService = goodService;
-        LoadGoods();
-        AddGoodCommand = new RelayCommand(AddGood);
-    }
-
-    private void LoadGoods()
-    {
-        Goods = new ObservableCollection<PTProject.Presentation.Models.Good>(
-            _goodService.GetAllGoods().Select(g => new PTProject.Presentation.Models.Good
+            get { return _selectedGood; }
+            set
             {
-                GoodId = g.GoodId,
-                Name = g.Name,
-                Description = g.Description,
-                Price = g.Price
-            }));
-    }
-
-    public string NewGoodName
-    {
-        get { return _newGoodName; }
-        set
-        {
-            _newGoodName = value;
-            OnPropertyChanged("NewGoodName");
+                _selectedGood = value;
+                OnPropertyChanged("SelectedGood");
+            }
         }
-    }
 
-    private void AddGood(object obj)
-    {
-        string name = obj as string; // Cast the object to string
-        int lastGoodId = (_goods.Any()) ? _goods.Max(g => g.GoodId) : 0;
-        int newGoodId = lastGoodId + 1;
+        public ICommand ShowGoodDetailsCommand { get; private set; }
 
-        if (!string.IsNullOrEmpty(name)) // Check if the name is not null or empty
+        public GoodMasterViewModel(IGoodService goodService, IProcessStateService processStateService)
         {
-            PTProject.Data.Good good = new PTProject.Data.Good()
-            {
-                GoodId = newGoodId,
-                Name = name,
-                Description = NewGoodDescription,
-                Price = NewGoodPrice
-            };
-            _goodService.AddGood(good);
+            _goodService = goodService;
+            _processStateService = processStateService;
             LoadGoods();
+            AddGoodCommand = new RelayCommand(AddGood);
+            ShowGoodDetailsCommand = new RelayCommand(ShowGoodDetails);
         }
-    }
-
-    protected virtual void OnPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
-    public ObservableCollection<PTProject.Presentation.Models.Good> Goods // Change type to ObservableCollection<Presentation.Models.Good>
-    {
-        get { return _goods; }
-        set
+        private void ShowGoodDetails(object obj)
         {
-            _goods = value;
-            OnPropertyChanged("Goods");
+            GoodDetailView detailView = new GoodDetailView();
+            detailView.DataContext = SelectedGood;
+            DetailView = detailView;
+            OnPropertyChanged("DetailView");
+        }
+        private void LoadGoods()
+        {
+            Goods = new ObservableCollection<Good>(
+                _goodService.GetAllGoods().Select(g => new Good
+                {
+                    GoodId = g.GoodId,
+                    Name = g.Name,
+                    Description = g.Description,
+                    Price = g.Price
+                }));
+        }
+
+        public string NewGoodName
+        {
+            get { return _newGoodName; }
+            set
+            {
+                _newGoodName = value;
+                OnPropertyChanged("NewGoodName");
+            }
+        }
+
+        private void AddGood(object obj)
+        {
+            string name = obj as string; // Cast the object to string
+            int lastGoodId = (_goods.Any()) ? _goods.Max(g => g.GoodId) : 0;
+            int newGoodId = lastGoodId + 1;
+
+            if (!string.IsNullOrEmpty(name)) // Check if the name is not null or empty
+            {
+                Good good = new Good()
+                {
+                    GoodId = newGoodId,
+                    Name = name,
+                    Description = NewGoodDescription,
+                    Price = NewGoodPrice
+                };
+                _goodService.AddGood(MapToDTO(good));
+                LoadGoods();
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public ObservableCollection<Good> Goods // Change type to ObservableCollection<Presentation.Models.Good>
+        {
+            get { return _goods; }
+            set
+            {
+                _goods = value;
+                OnPropertyChanged("Goods");
+            }
+        }
+
+        private GoodDTO MapToDTO(Good good)
+        {
+            return new GoodDTO
+            {
+                GoodId = good.GoodId,
+                Name = good.Name,
+                Description = good.Description,
+                Price = good.Price,
+            };
+        }
+
+        private Good MapToEntity(GoodDTO goodDTO)
+        {
+            return new Good
+            {
+                GoodId = goodDTO.GoodId,
+                Name = goodDTO.Name,
+                Description = goodDTO.Description,
+                Price = goodDTO.Price,
+            };
         }
     }
 }
+

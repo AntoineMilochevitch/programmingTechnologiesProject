@@ -1,41 +1,38 @@
 ﻿using PTProject.Data;
-using System.Linq;
 
 namespace PTProject.Service
 {
     public class EventsService
     {
-        private PTProjectDataContext _context;
+        private IUnitOfWork _unitOfWork;
 
-        public EventsService(PTProjectDataContext context)
+        public EventsService(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            _unitOfWork = unitOfWork;
         }
 
         // Create
         public void AddEvent(Event evt)
         {
-            _context.Events.InsertOnSubmit(evt);
-            _context.SubmitChanges();
+            _unitOfWork.EventRepository.Add(evt);
+            _unitOfWork.Save();
         }
 
         // Read
         public Event GetEvent(int id)
         {
-            return _context.Events.SingleOrDefault(e => e.EventId == id);
+            return _unitOfWork.EventRepository.GetById(id);
         }
 
         // Delete
         public void DeleteEvent(int id)
         {
-            Event evt = _context.Events.SingleOrDefault(e => e.EventId == id);
+            Event evt = _unitOfWork.EventRepository.GetById(id);
             if (evt != null)
-                {
-                _context.Events.DeleteOnSubmit(evt);
-                _context.SubmitChanges();
+            {
+                _unitOfWork.EventRepository.Delete(evt);
+                _unitOfWork.Save();
             }
         }
     }
 }
-
-

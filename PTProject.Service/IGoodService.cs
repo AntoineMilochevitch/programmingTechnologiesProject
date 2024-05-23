@@ -5,11 +5,13 @@ namespace PTProject.Service
 {
     public interface IGoodService
     {
-        void AddGood(Good good);
-        Good GetGood(int id);
-        void UpdateGood(Good updatedGood);
+        IEnumerable<GoodDTO> GetAllGoods();
+        GoodDTO GetGoodById(int id);
+        void AddGood(GoodDTO good);
+        void UpdateGood(GoodDTO good);
         void DeleteGood(int id);
-        int NumberGood(int goodId);
-        List<Good> GetAllGoods();
+        int NumberGood(string name);
     }
+
+
 }

@@ -1,5 +1,7 @@
-﻿using PTProject.ViewModels;
+﻿// UserMasterView.xaml.cs
+using PTProject.Presentation.ViewModels;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace PTProject.Presentation.Views
 {
@@ -9,6 +11,15 @@ namespace PTProject.Presentation.Views
         {
             InitializeComponent();
             DataContext = viewModel;
+        }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var viewModel = DataContext as UserMasterViewModel;
+            if (viewModel != null)
+            {
+                viewModel.SelectUserCommand.Execute(null);
+            }
         }
     }
 }
