@@ -30,18 +30,18 @@ namespace PTProject.Service
         // Update
         public void UpdateProcessState(ProcessState updatedProcessState, string eventType)
         {
-            ProcessState processState = _unitOfWork.ProcessStateRepository.GetById(updatedProcessState.ProcessStateId);
+            ProcessState processState = _unitOfWork.ProcessStateRepository.GetById(updatedProcessState.Id);
             if (processState != null)
             {
                 // Get the associated Good
-                Good good = _unitOfWork.GoodRepository.GetById(processState.GoodId);
+                Good good = _unitOfWork.GoodRepository.GetById(processState.Id);
 
                 if (good != null)
                 {
                     // Adjust the description and create the event based on the event type
                     if (eventType == "Purchase")
                     {
-                        if (_goodService.GetGoodById(good.GoodId) != null)
+                        if (_goodService.GetGoodById(good.Id) != null)
                         {
                             processState.Description = "Buy";
                             CreateEvent(updatedProcessState, "Purchase");
@@ -62,7 +62,7 @@ namespace PTProject.Service
                         // Add a new Good to the Catalog
                         Good newGood = new Good
                         {
-                            // Set the properties of the new Good here. For example:
+
                             Name = good.Name,
                             Description = good.Description,
                             Price = good.Price,
@@ -79,9 +79,9 @@ namespace PTProject.Service
         private void CreateEvent(ProcessState processState, string eventType)
         {
             // Create a new event
-            Event evt = new Event
+            Events evt = new Events
             {
-                Description = $"ProcessState with ID {processState.ProcessStateId} was updated to {eventType}",
+                Description = $"ProcessState with ID {processState.Id} was updated to {eventType}",
                 EventType = eventType,
             };
 

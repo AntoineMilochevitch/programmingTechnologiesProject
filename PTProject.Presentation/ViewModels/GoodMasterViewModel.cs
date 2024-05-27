@@ -55,7 +55,7 @@ namespace PTProject.Presentation.ViewModels {
             Goods = new ObservableCollection<Good>(
                 _goodService.GetAllGoods().Select(g => new Good
                 {
-                    GoodId = g.GoodId,
+                    Id = g.Id,
                     Name = g.Name,
                     Description = g.Description,
                     Price = g.Price
@@ -75,14 +75,14 @@ namespace PTProject.Presentation.ViewModels {
         private void AddGood(object obj)
         {
             string name = obj as string; // Cast the object to string
-            int lastGoodId = (_goods.Any()) ? _goods.Max(g => g.GoodId) : 0;
+            int lastGoodId = (_goods.Any()) ? _goods.Max(g => g.Id) : 0;
             int newGoodId = lastGoodId + 1;
 
             if (!string.IsNullOrEmpty(name)) // Check if the name is not null or empty
             {
                 Good good = new Good()
                 {
-                    GoodId = newGoodId,
+                    Id = newGoodId,
                     Name = name,
                     Description = NewGoodDescription,
                     Price = NewGoodPrice
@@ -110,7 +110,7 @@ namespace PTProject.Presentation.ViewModels {
         {
             return new GoodDTO
             {
-                GoodId = good.GoodId,
+                Id = good.Id,
                 Name = good.Name,
                 Description = good.Description,
                 Price = good.Price,
@@ -121,7 +121,7 @@ namespace PTProject.Presentation.ViewModels {
         {
             return new Good
             {
-                GoodId = goodDTO.GoodId,
+                Id = goodDTO.Id,
                 Name = goodDTO.Name,
                 Description = goodDTO.Description,
                 Price = goodDTO.Price,

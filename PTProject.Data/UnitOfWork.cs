@@ -7,7 +7,7 @@ namespace PTProject.Data
         private readonly PTProjectDataContext _context;
         private IRepository<User> _userRepository;
         private IRepository<Good> _goodRepository;
-        private IRepository<Event> _eventRepository;
+        private IRepository<Events> _eventRepository;
         private IRepository<ProcessState> _processStateRepository;
 
         public UnitOfWork(PTProjectDataContext context)
@@ -40,13 +40,13 @@ namespace PTProject.Data
             }
         }
 
-        public IRepository<Event> EventRepository
+        public IRepository<Events> EventRepository
         {
             get
             {
                 if (_eventRepository == null)
                 {
-                    _eventRepository = new Repository<Event>(_context);
+                    _eventRepository = new Repository<Events>(_context);
                 }
                 return _eventRepository;
             }

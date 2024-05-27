@@ -6,7 +6,7 @@ namespace PTProject.Data
     {
         IRepository<User> UserRepository { get; }
         IRepository<Good> GoodRepository { get; }
-        IRepository<Event> EventRepository { get; }
+        IRepository<Events> EventRepository { get; }
         IRepository<ProcessState> ProcessStateRepository { get; }
         void Save();
     }

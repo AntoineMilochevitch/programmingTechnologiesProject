@@ -21,12 +21,14 @@ namespace PTProject.Data
 
         public T GetById(int id)
         {
-            return _table.SingleOrDefault(e => (int)e.GetType().GetProperty("Id").GetValue(e) == id);
+            var query = _context.ExecuteQuery<T>("SELECT * FROM {0} WHERE Id = {1}", _table.GetType().Name, id);
+            return query.SingleOrDefault();
         }
 
         public void Add(T entity)
         {
             _table.InsertOnSubmit(entity);
+            _context.SubmitChanges();
         }
 
         public void Update(T entity)
@@ -38,6 +40,7 @@ namespace PTProject.Data
         public void Delete(T entity)
         {
             _table.DeleteOnSubmit(entity);
+            _context.SubmitChanges();
         }
     }
 

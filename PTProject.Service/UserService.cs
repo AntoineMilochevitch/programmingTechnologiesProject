@@ -12,12 +12,12 @@ namespace PTProject.Service
         {
             _unitOfWork = unitOfWork;
         }
-        private UserDTO MapToDTO(User user)
+        private UserDTO MapToDTO(User User)
         {
             return new UserDTO
             {
-                UserId = user.UserId,
-                UserName = user.UserName,
+                Id = User.Id,
+                UserName = User.UserName,
             };
         }
 
@@ -25,39 +25,39 @@ namespace PTProject.Service
         {
             return new User
             {
-                UserId = userDTO.UserId,
+                Id = userDTO.Id,
                 UserName = userDTO.UserName,
             };
         }
         public virtual void AddUser(UserDTO userDTO)
         {
-            User user = MapToEntity(userDTO);
-            _unitOfWork.UserRepository.Add(user);
+            User User = MapToEntity(userDTO);
+            _unitOfWork.UserRepository.Add(User);
             _unitOfWork.Save();
         }
 
         // Read
         public UserDTO GetUser(int id)
         {
-            User user = _unitOfWork.UserRepository.GetById(id);
-            return user != null ? MapToDTO(user) : null;
+            User User = _unitOfWork.UserRepository.GetById(id);
+            return User != null ? MapToDTO(User) : null;
         }
 
         // Update
         public void UpdateUser(UserDTO userDTO)
         {
-            User user = MapToEntity(userDTO);
-            _unitOfWork.UserRepository.Update(user);
+            User User = MapToEntity(userDTO);
+            _unitOfWork.UserRepository.Update(User);
             _unitOfWork.Save();
         }
 
         // Delete
         public void DeleteUser(int id)
         {
-            User user = _unitOfWork.UserRepository.GetById(id);
-            if (user != null)
+            User User = _unitOfWork.UserRepository.GetById(id);
+            if (User != null)
             {
-                _unitOfWork.UserRepository.Delete(user);
+                _unitOfWork.UserRepository.Delete(User);
                 _unitOfWork.Save();
             }
         }
@@ -69,14 +69,14 @@ namespace PTProject.Service
 
         public virtual List<UserDTO> GetAllUsers()
         {
-            return _unitOfWork.UserRepository.GetAll().Select(user => MapToDTO(user)).ToList();
+            return _unitOfWork.UserRepository.GetAll().Select(User => MapToDTO(User)).ToList();
         }
 
         private GoodDTO MapGoodToDTO(Good good)
         {
             return new GoodDTO
             {
-                GoodId = good.GoodId,
+                Id = good.Id,
                 Name = good.Name,
                 Description = good.Description,
                 Price = good.Price,
@@ -86,10 +86,10 @@ namespace PTProject.Service
         {
             List<GoodDTO> purchasedGoods = new List<GoodDTO>();
 
-            var processStates = _unitOfWork.ProcessStateRepository.GetAll().Where(ps => ps.UserId == userId && ps.Description == "BUY");
+            var processStates = _unitOfWork.ProcessStateRepository.GetAll().Where(ps => ps.Id == userId && ps.Description == "BUY");
             foreach (var processState in processStates)
             {
-                Good good = _unitOfWork.GoodRepository.GetById(processState.GoodId);
+                Good good = _unitOfWork.GoodRepository.GetById(processState.Id);
                 if (good != null)
                 {
                     purchasedGoods.Add(MapGoodToDTO(good));

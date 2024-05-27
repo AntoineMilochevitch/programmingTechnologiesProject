@@ -12,14 +12,14 @@ namespace PTProject.Service
         }
 
         // Create
-        public void AddEvent(Event evt)
+        public void AddEvent(Events evt)
         {
             _unitOfWork.EventRepository.Add(evt);
             _unitOfWork.Save();
         }
 
         // Read
-        public Event GetEvent(int id)
+        public Events GetEvent(int id)
         {
             return _unitOfWork.EventRepository.GetById(id);
         }
@@ -27,7 +27,7 @@ namespace PTProject.Service
         // Delete
         public void DeleteEvent(int id)
         {
-            Event evt = _unitOfWork.EventRepository.GetById(id);
+            Events evt = _unitOfWork.EventRepository.GetById(id);
             if (evt != null)
             {
                 _unitOfWork.EventRepository.Delete(evt);

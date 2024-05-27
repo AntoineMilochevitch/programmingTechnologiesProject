@@ -11,7 +11,7 @@
         <ListView Grid.Column="0" ItemsSource="{Binding Goods}" SelectedItem="{Binding SelectedGood}" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Good ID" DisplayMemberBinding="{Binding GoodId}" />
+                    <GridViewColumn Header="Good ID" DisplayMemberBinding="{Binding Id}" />
                     <GridViewColumn Header="Good Name" DisplayMemberBinding="{Binding Name}" />
                 </GridView>
             </ListView.View>

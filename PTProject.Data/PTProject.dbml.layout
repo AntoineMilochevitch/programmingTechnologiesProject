@@ -2,49 +2,49 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="PTProject">
   <DataContextMoniker Name="/PTProjectDataContext" />
   <nestedChildShapes>
-    <classShape Id="2fc6b126-78c7-445e-9e7b-c001322c10c4" absoluteBounds="5.5, 0.75, 2, 1.7708968098958331">
-      <DataClassMoniker Name="/PTProjectDataContext/Event" />
+    <classShape Id="b10da37c-4e2a-48b8-80bb-6f69e8ef7a05" absoluteBounds="0.5, 0.75, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/PTProjectDataContext/Events" />
       <nestedChildShapes>
-        <elementListCompartment Id="b4ff7c34-17de-4f19-9442-8233e22027c5" absoluteBounds="5.515, 1.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ee2f55bb-a576-4f1a-9a3e-b7fff99e1573" absoluteBounds="0.51500000000000012, 1.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="658252b0-8b7e-4e19-8878-d4074f8148b5" absoluteBounds="2.125, 1.125, 2, 1.5785953776041666">
-      <DataClassMoniker Name="/PTProjectDataContext/ProcessState" />
-      <nestedChildShapes>
-        <elementListCompartment Id="f5d13b21-d571-444f-9649-844d2c203497" absoluteBounds="2.1399999999999997, 1.585, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
-      </nestedChildShapes>
-    </classShape>
-    <associationConnector edgePoints="[(4.125 : 1.82294840494792); (5.5 : 1.82294840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/PTProjectDataContext/ProcessState/ProcessState_Event" />
-      <nodes>
-        <classShapeMoniker Id="658252b0-8b7e-4e19-8878-d4074f8148b5" />
-        <classShapeMoniker Id="2fc6b126-78c7-445e-9e7b-c001322c10c4" />
-      </nodes>
-    </associationConnector>
-    <classShape Id="fc751e01-3744-4452-a284-350767b544a6" absoluteBounds="4.75, 3.25, 2, 1.5785953776041666">
+    <classShape Id="16e349d1-e784-4852-8e9d-830612e7dd5d" absoluteBounds="3.375, 0.625, 2, 1.5785953776041666">
       <DataClassMoniker Name="/PTProjectDataContext/Good" />
       <nestedChildShapes>
-        <elementListCompartment Id="e396abd2-1d7b-406e-9cf2-0756bbbb4df0" absoluteBounds="4.7650000000000006, 3.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3d90316d-6e53-45fe-9f18-6f9417872669" absoluteBounds="3.3899999999999997, 1.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(4.75 : 3.25); (4.125 : 2.70359537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
-      <AssociationMoniker Name="/PTProjectDataContext/Good/Good_ProcessState" />
+    <classShape Id="a57a4759-0250-4832-bc15-4fb3d641fda0" absoluteBounds="2.5, 2.5, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/PTProjectDataContext/ProcessState" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1743741e-2684-4e9e-bd31-5b7cc63a4d08" absoluteBounds="2.5149999999999997, 2.96, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.5 : 3.28929768880208); (1.4999995 : 3.28929768880208); (1.4999995 : 2.52089680989583)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PTProjectDataContext/ProcessState/ProcessState_Events" />
       <nodes>
-        <classShapeMoniker Id="fc751e01-3744-4452-a284-350767b544a6" />
-        <classShapeMoniker Id="658252b0-8b7e-4e19-8878-d4074f8148b5" />
+        <classShapeMoniker Id="a57a4759-0250-4832-bc15-4fb3d641fda0" />
+        <classShapeMoniker Id="b10da37c-4e2a-48b8-80bb-6f69e8ef7a05" />
       </nodes>
     </associationConnector>
-    <classShape Id="f4407e76-b771-4365-96a4-2b3611af50a7" absoluteBounds="7.875, 2.25, 2, 1.1939925130208333">
+    <associationConnector edgePoints="[(3.9375 : 2.20359537760417); (3.9375 : 2.5)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/PTProjectDataContext/Good/Good_ProcessState" />
+      <nodes>
+        <classShapeMoniker Id="16e349d1-e784-4852-8e9d-830612e7dd5d" />
+        <classShapeMoniker Id="a57a4759-0250-4832-bc15-4fb3d641fda0" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="e16b21e5-f98d-4605-a18d-44a1dfdbd29e" absoluteBounds="4.75, 2.75, 2, 1.1939925130208333">
       <DataClassMoniker Name="/PTProjectDataContext/User" />
       <nestedChildShapes>
-        <elementListCompartment Id="605b158f-60a5-4ef8-bdf5-15931637439a" absoluteBounds="7.8900000000000006, 2.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="fba4d7f5-5b8a-4232-95cd-7e2206d0f9c5" absoluteBounds="4.765, 3.21, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7.875 : 2.67234287760417); (4.125 : 2.67234287760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.75 : 3.34699625651042); (4.5 : 3.34699625651042)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/PTProjectDataContext/User/User_ProcessState" />
       <nodes>
-        <classShapeMoniker Id="f4407e76-b771-4365-96a4-2b3611af50a7" />
-        <classShapeMoniker Id="658252b0-8b7e-4e19-8878-d4074f8148b5" />
+        <classShapeMoniker Id="e16b21e5-f98d-4605-a18d-44a1dfdbd29e" />
+        <classShapeMoniker Id="a57a4759-0250-4832-bc15-4fb3d641fda0" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

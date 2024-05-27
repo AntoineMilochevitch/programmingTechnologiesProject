@@ -57,7 +57,7 @@ namespace PTProject.Service
         {
             return new GoodDTO
             {
-                GoodId = good.GoodId,
+                Id = good.Id,
                 Name = good.Name,
                 Description = good.Description,
                 Price = good.Price,
@@ -68,7 +68,7 @@ namespace PTProject.Service
         {
             return new Good
             {
-                GoodId = goodDTO.GoodId,
+                Id = goodDTO.Id,
                 Name = goodDTO.Name,
                 Description = goodDTO.Description,
                 Price = goodDTO.Price,

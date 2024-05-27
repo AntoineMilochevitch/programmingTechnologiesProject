@@ -12,7 +12,7 @@
         <ListView Grid.Column="0" ItemsSource="{Binding Users}" SelectedItem="{Binding SelectedUser}" SelectionChanged="ListView_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="User ID" DisplayMemberBinding="{Binding UserId}" />
+                    <GridViewColumn Header="User ID" DisplayMemberBinding="{Binding Id}" />
                     <GridViewColumn Header="User Name" DisplayMemberBinding="{Binding UserName}" />
                 </GridView>
             </ListView.View>

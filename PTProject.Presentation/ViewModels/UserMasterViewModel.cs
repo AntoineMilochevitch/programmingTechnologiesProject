@@ -6,7 +6,6 @@ using System.Windows.Input;
 using PTProject.Presentation.Views;
 using System.Linq;
 using System.Collections.Generic;
-using System.Windows.Markup;
 using System;
 
 namespace PTProject.Presentation.ViewModels
@@ -40,7 +39,7 @@ namespace PTProject.Presentation.ViewModels
             Users = new ObservableCollection<User>(
                 _userService.GetAllUsers().Select(u => new User
                 {
-                    UserId = u.UserId,
+                    Id = u.Id,
                     UserName = u.UserName
                 }));
         }
@@ -60,11 +59,11 @@ namespace PTProject.Presentation.ViewModels
 
             if (!string.IsNullOrEmpty(name)) // Check if the name is not null or empty
             {
-                int lastUserId = (_users.Any()) ? _users.Max(u => u.UserId) : 0;
+                int lastUserId = (_users.Any()) ? _users.Max(u => u.Id) : 0;
                 int newUserId = lastUserId + 1;
                 User user = new User()
                 {
-                    UserId = newUserId,
+                    Id = newUserId,
                     UserName = name,
                 };
                 _userService.AddUser(MapToDTO(user));
@@ -120,10 +119,10 @@ namespace PTProject.Presentation.ViewModels
                 // Get the purchased goods when a new user is selected
                 if (_selectedUser != null)
                 {
-                    PurchasedGoods = _userService.GetPurchasedGoods(_selectedUser.UserId)
+                    PurchasedGoods = _userService.GetPurchasedGoods(_selectedUser.Id)
                         .Select(g => new Good
                         {
-                            GoodId = g.GoodId,
+                            Id = g.Id,
                             Name = g.Name,
                             Description = g.Description,
                             Price = g.Price
@@ -136,7 +135,7 @@ namespace PTProject.Presentation.ViewModels
         {
             return new UserDTO
             {
-                UserId = user.UserId,
+                Id = user.Id,
                 UserName = user.UserName,
             };
         }
@@ -145,7 +144,7 @@ namespace PTProject.Presentation.ViewModels
         {
             return new User
             {
-                UserId = userDTO.UserId,
+                Id = userDTO.Id,
                 UserName = userDTO.UserName,
             };
         }

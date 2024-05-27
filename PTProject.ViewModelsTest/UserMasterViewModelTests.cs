@@ -1,63 +1,37 @@
-﻿/*using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PTProject.ViewModels;
-using System.Collections.Generic;
-
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PTProject.Presentation.ViewModels;
+using PTProject.Presentation.Models;
+using System.Linq;
 
 namespace PTProject.ViewModelsTest
 {
-
     [TestClass]
     public class UserMasterViewModelTests
     {
-        private List<PTProject.Presentation.Models.User> GenerateRandomUsers(int count)
-        {
-            var users = new List<PTProject.Presentation.Models.User>();
-            for (int i = 0; i < count; i++)
-            {
-                users.Add(new PTProject.Presentation.Models.User { UserId = i, UserName = $"User{i}" });
-            }
-            return users;
-        }
+        private UserMasterViewModel _viewModel;
+        private UserServiceStub _userServiceStub;
 
-        private List<PTProject.Presentation.Models.User> GenerateSpecificUsers()
+        [TestInitialize]
+        public void TestInitialize()
         {
-            return new List<PTProject.Presentation.Models.User>
-    {
-        new PTProject.Presentation.Models.User { UserId = 1, UserName = "Alice" },
-        new PTProject.Presentation.Models.User { UserId = 2, UserName = "Bob" },
-    };
+            _userServiceStub = new UserServiceStub();
+            _viewModel = new UserMasterViewModel(_userServiceStub);
         }
 
         [TestMethod]
-        public void LoadUsers_LoadsCorrectUsers()
+        public void TestAddUser()
         {
             // Arrange
-            var userService = new UserServiceStub(GenerateSpecificUsers());
-            var viewModel = new UserMasterViewModel(userService);
+            var user = new User { Id = 1, UserName = "User1" };
 
             // Act
-            viewModel.LoadUsers();
+            _viewModel.AddUser(user.UserName);
 
             // Assert
-            Assert.AreEqual(2, viewModel.Users.Count);
-            Assert.AreEqual("Alice", viewModel.Users[0].UserName);
-            Assert.AreEqual("Bob", viewModel.Users[1].UserName);
-        }
-
-        [TestMethod]
-        public void AddUser_AddsUserToUsers()
-        {
-            // Arrange
-            var userService = new UserServiceStub(GenerateRandomUsers(2));
-            var viewModel = new UserMasterViewModel(userService);
-
-            // Act
-            viewModel.AddUser("Charlie");
-
-            // Assert
-            Assert.AreEqual(3, viewModel.Users.Count);
-            Assert.AreEqual("Charlie", viewModel.Users[2].UserName);
+            var users = _viewModel.Users;
+            Assert.AreEqual(1, users.Count);
+            Assert.AreEqual(user.Id, users.First().Id);
+            Assert.AreEqual(user.UserName, users.First().UserName);
         }
     }
-}*/
-
+}
