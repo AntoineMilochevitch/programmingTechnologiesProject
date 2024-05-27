@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using PTProject.Data;
 
-namespace PTProject.DataTest
+namespace PTProject.Data
 {
     public class RepositoryStub<T> : IRepository<T> where T : class
     {

@@ -16,14 +16,16 @@ namespace PTProject.Data
 
         public IQueryable<T> GetAll()
         {
-            return _table;
+            var query = from item in _table
+                        select item;
+            return query;
         }
 
         public T GetById(int id)
         {
-            var query = _context.ExecuteQuery<T>("SELECT * FROM {0} WHERE Id = {1}", _table.GetType().Name, id);
-            return query.SingleOrDefault();
+            return _table.SingleOrDefault(e => (int)e.GetType().GetProperty("Id").GetValue(e) == id);
         }
+
 
         public void Add(T entity)
         {

@@ -50,17 +50,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitOfWorkStub.cs" />
     <Compile Include="UserServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PTProject.DataTest\PTProject.DataTest.csproj">
-      <Project>{781e7a11-be22-40b3-b871-ad04e62a163a}</Project>
-      <Name>PTProject.DataTest</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PTProject.Data\PTProject.Data.csproj">
       <Project>{9ed5d6de-9650-4525-8b49-f7eed8eee974}</Project>
       <Name>PTProject.Data</Name>
