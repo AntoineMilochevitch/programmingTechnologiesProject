@@ -1,48 +1,65 @@
 ﻿using PTProject.Presentation.Models;
-using PTProject.Service;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows.Input;
-using PTProject.Presentation.Views;
 using System.Linq;
-using System.Collections.Generic;
-using System;
+using System.Windows.Input;
 
 namespace PTProject.Presentation.ViewModels
 {
     public class UserMasterViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private IUserService _userService;
-        private ObservableCollection<User> _users; // Change type to Presentation.Models.User
+        private UserModel _userModel;
+        private ObservableCollection<User> _users;
         private string _newUserName;
+
         public ICommand AddUserCommand { get; private set; }
-        public ICommand SelectUserCommand { get; private set; }
 
-
-        public UserDetailView DetailView { get; set; }
-        private User _selectedUser;
-        private List<Good> _purchasedGoods;
-
-
-        public UserMasterViewModel(IUserService userService)
+        private UserDetailViewModel _detailViewModel;
+        public UserDetailViewModel DetailViewModel
         {
-            _userService = userService;
+            get { return _detailViewModel; }
+            set
+            {
+                _detailViewModel = value;
+                OnPropertyChanged("DetailViewModel");
+            }
+        }
+
+        private User _selectedUser;
+        public User SelectedUser
+        {
+            get { return _selectedUser; }
+            set
+            {
+                _selectedUser = value;
+                OnPropertyChanged("SelectedUser");
+                ShowUserDetails();
+            }
+        }
+
+        public UserMasterViewModel(UserModel userModel)
+        {
+            _userModel = userModel;
             LoadUsers();
             AddUserCommand = new RelayCommand(AddUser);
-            SelectUserCommand = new RelayCommand(ShowUserDetails);
-
         }
 
-        public void LoadUsers()
+        private void LoadUsers()
         {
-            Users = new ObservableCollection<User>(
-                _userService.GetAllUsers().Select(u => new User
-                {
-                    Id = u.Id,
-                    UserName = u.UserName
-                }));
+            Users = new ObservableCollection<User>(_userModel.GetAllUsers());
         }
+
+        public ObservableCollection<User> Users
+        {
+            get { return _users; }
+            set
+            {
+                _users = value;
+                OnPropertyChanged("Users");
+            }
+        }
+
         public string NewUserName
         {
             get { return _newUserName; }
@@ -55,98 +72,34 @@ namespace PTProject.Presentation.ViewModels
 
         public void AddUser(object obj)
         {
-            string name = obj as string; // Cast the object to string
+            string name = obj as string;
 
-            if (!string.IsNullOrEmpty(name)) // Check if the name is not null or empty
+            if (!string.IsNullOrEmpty(name))
             {
                 int lastUserId = (_users.Any()) ? _users.Max(u => u.Id) : 0;
                 int newUserId = lastUserId + 1;
-                User user = new User()
+                User user = new User
                 {
                     Id = newUserId,
-                    UserName = name,
+                    UserName = name
                 };
-                _userService.AddUser(MapToDTO(user));
+                _userModel.AddUser(user);
                 LoadUsers();
-            }
-            else
-            {
-                Console.WriteLine("The user name is null or empty.");
             }
         }
 
+        private void ShowUserDetails()
+        {
+            if (SelectedUser != null)
+            {
+                var purchasedGoods = _userModel.GetPurchasedGoods(SelectedUser.Id);
+                DetailViewModel = new UserDetailViewModel(SelectedUser, purchasedGoods);
+            }
+        }
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public ObservableCollection<User> Users // Change type to ObservableCollection<Presentation.Models.User>
-        {
-            get { return _users; }
-            set
-            {
-                _users = value;
-                OnPropertyChanged("Users");
-            }
-        }
-
-
-        private void ShowUserDetails(object obj)
-        {
-            SelectedUser = obj as User;
-            UserDetailView detailView = new UserDetailView();
-            detailView.DataContext = SelectedUser;
-            DetailView = detailView;
-            OnPropertyChanged("DetailView");
-        }
-        public List<Good> PurchasedGoods
-        {
-            get { return _purchasedGoods; }
-            set
-            {
-                _purchasedGoods = value;
-                OnPropertyChanged("PurchasedGoods");
-            }
-        }
-        public User SelectedUser
-        {
-            get { return _selectedUser; }
-            set
-            {
-                _selectedUser = value;
-                OnPropertyChanged("SelectedUser");
-
-                // Get the purchased goods when a new user is selected
-                if (_selectedUser != null)
-                {
-                    PurchasedGoods = _userService.GetPurchasedGoods(_selectedUser.Id)
-                        .Select(g => new Good
-                        {
-                            Id = g.Id,
-                            Name = g.Name,
-                            Description = g.Description,
-                            Price = g.Price
-                        }).ToList();
-                }
-            }
-        }
-
-        private UserDTO MapToDTO(User user)
-        {
-            return new UserDTO
-            {
-                Id = user.Id,
-                UserName = user.UserName,
-            };
-        }
-
-        private User MapToPresentationModel(UserDTO userDTO)
-        {
-            return new User
-            {
-                Id = userDTO.Id,
-                UserName = userDTO.UserName,
-            };
         }
     }
 }

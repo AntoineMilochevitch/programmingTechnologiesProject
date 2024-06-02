@@ -5,8 +5,7 @@
     <Grid>
         <StackPanel Orientation="Vertical">
             <Label Content="User Name" />
-            <TextBox  />
-            <Button Content="Update UserName" />
+            <TextBox Text="{Binding User.UserName}" IsReadOnly="True" />
             <Label Content="Purchased Goods" />
             <ListView ItemsSource="{Binding PurchasedGoods}">
                 <ListView.View>
@@ -16,7 +15,6 @@
                     </GridView>
                 </ListView.View>
             </ListView>
-
         </StackPanel>
     </Grid>
 </UserControl>

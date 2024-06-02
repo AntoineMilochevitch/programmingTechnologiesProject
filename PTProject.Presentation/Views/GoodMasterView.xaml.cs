@@ -15,13 +15,5 @@ namespace PTProject.Presentation.Views
             InitializeComponent();
             DataContext = viewModel;
         }
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var viewModel = DataContext as GoodMasterViewModel;
-            if (viewModel != null)
-            {
-                viewModel.ShowGoodDetailsCommand.Execute(null);
-            }
-        }
     }
 }

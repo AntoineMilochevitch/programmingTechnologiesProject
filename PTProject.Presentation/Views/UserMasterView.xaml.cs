@@ -12,14 +12,5 @@ namespace PTProject.Presentation.Views
             InitializeComponent();
             DataContext = viewModel;
         }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var viewModel = DataContext as UserMasterViewModel;
-            if (viewModel != null)
-            {
-                viewModel.SelectUserCommand.Execute(null);
-            }
-        }
     }
 }

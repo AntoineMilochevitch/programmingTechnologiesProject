@@ -15,8 +15,10 @@ namespace PTProject.ViewModelsTest
         public void TestInitialize()
         {
             _userServiceStub = new UserServiceStub();
-            _viewModel = new UserMasterViewModel(_userServiceStub);
+            UserModel userModel = new UserModel(_userServiceStub);
+            _viewModel = new UserMasterViewModel(userModel);
         }
+
 
         [TestMethod]
         public void TestAddUser()
