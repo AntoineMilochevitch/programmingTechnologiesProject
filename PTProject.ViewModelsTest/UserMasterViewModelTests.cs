@@ -23,9 +23,8 @@ namespace PTProject.ViewModelsTest
         }
         private User GenerateUser()
         {
-            int randomId = _random.Next(1, 100);
             string randomUserName = GenerateRandomUserName();
-            return new User { Id = randomId, UserName = randomUserName };
+            return new User { Id = 1, UserName = randomUserName };
         }
         private string GenerateRandomUserName()
         {
