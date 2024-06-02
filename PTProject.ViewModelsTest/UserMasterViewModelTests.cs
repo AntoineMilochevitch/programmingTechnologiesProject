@@ -18,7 +18,10 @@ namespace PTProject.ViewModelsTest
             UserModel userModel = new UserModel(_userServiceStub);
             _viewModel = new UserMasterViewModel(userModel);
         }
-
+        private User GenerateUser(int id, string userName)
+        {
+            return new User { Id = id, UserName = userName };
+        }
 
         [TestMethod]
         public void TestAddUser()
@@ -35,5 +38,22 @@ namespace PTProject.ViewModelsTest
             Assert.AreEqual(user.Id, users.First().Id);
             Assert.AreEqual(user.UserName, users.First().UserName);
         }
+
+        [TestMethod]
+        public void TestAddUser2()
+        {
+            // Arrange
+            var user = GenerateUser(1, "User1");
+
+            // Act
+            _viewModel.AddUser(user.UserName);
+
+            // Assert
+            var users = _viewModel.Users;
+            Assert.AreEqual(1, users.Count);
+            Assert.AreEqual(user.Id, users.First().Id);
+            Assert.AreEqual(user.UserName, users.First().UserName);
+        }
+
     }
 }
