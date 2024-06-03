@@ -66,7 +66,16 @@ namespace PTProject.Data
 
         public void Save()
         {
-            _context.SubmitChanges();
+            try
+            {
+                _context.SubmitChanges();
+                Console.WriteLine("Changes saved successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error saving changes: " + ex.Message);
+                throw;
+            }
         }
 
         public void Dispose()

@@ -1,4 +1,5 @@
-﻿using System.Data.Linq;
+﻿using System;
+using System.Data.Linq;
 using System.Linq;
 
 namespace PTProject.Data
@@ -29,8 +30,17 @@ namespace PTProject.Data
 
         public void Add(T entity)
         {
-            _table.InsertOnSubmit(entity);
-            _context.SubmitChanges();
+            try
+            {
+                _table.InsertOnSubmit(entity);
+                _context.SubmitChanges();
+                Console.WriteLine("Entity added successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error adding entity: " + ex.Message);
+                throw;
+            }
         }
 
         public void Update(T entity)
